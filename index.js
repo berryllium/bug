@@ -1,5 +1,5 @@
 'use strict';
-
+ 
 // import renderCards from './modules/renderCards';
 // import renderCatalog from './modules/renderCatalog';
 // import toggleCheckBox from './modules/toggleCheckBox';
@@ -74,6 +74,7 @@ function renderItems(data) {
         iFotorama = 1,
         numberPage;
     data.items.forEach((item) => {
+        if (localStorage.getItem('sale') === null) localStorage.setItem('sale', 'false');
         if (localStorage.getItem('male') === item.male || localStorage.getItem('male') === 'all') {
             if ((localStorage.getItem('category') === item.category) || (localStorage.getItem('category') === "all")) {
                 if ((( localStorage.getItem('sale') === 'true' ) && (item.sale == true)) || ( localStorage.getItem('sale') === 'false' )) {
