@@ -104,6 +104,21 @@ function renderItems(data) {
                     `;
                     
                     itemsWrapper.appendChild(card);
+
+
+                    //order_________________________________
+                    const itemOrderButton = card.querySelector('.order-item-button');
+
+                    itemOrderButton.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        localStorage.setItem('send_type', 'order_item');
+                        localStorage.setItem('number_detail', item.id );
+                        $('.send_popup .main-form-btn').text('ЗАКАЗАТЬ');
+                        $('.send_popup').show('fade', 300);
+                        console.log(item.id)
+                    });
+                    //end_order_________________________________
+
                     
                     const itemFullButton = card.querySelector('.item-button-full');
 
@@ -183,15 +198,16 @@ function renderItems(data) {
             }
         }
         
-        //order__item_______________________________
-        $('.order-item-button').on('click', function(event) {
-            event.preventDefault();
-            localStorage.setItem('send_type', 'order_item');
-            localStorage.setItem('number_detail', item.id );
-            $('.send_popup .main-form-btn').text('ЗАКАЗАТЬ');
-            $('.send_popup').show('fade', 300);
-        });
-        //order__item_______________________________
+        // //order__item_______________________________
+        // $('.order-item-button').on('click', function(event) {
+        //     console.log(item['id']);
+        //     event.preventDefault();
+        //     localStorage.setItem('send_type', 'order_item');
+        //     localStorage.setItem('number_detail', item.id );
+        //     $('.send_popup .main-form-btn').text('ЗАКАЗАТЬ');
+        //     $('.send_popup').show('fade', 300);
+        // });
+        // //order__item_______________________________
 
     });
 
