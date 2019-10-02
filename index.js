@@ -1376,9 +1376,26 @@ function actionPage(data) {
 
 
     //SEND_MAIL_______________________________________
+    
+
     $('form').submit(async (event) => {
         event.preventDefault();
         const sendType = localStorage.getItem('send_type');
+        const sendData = {
+            good: localStorage.getItem('number_detal'),
+            name: 'Вася',
+            cotact: 'rembo@mail.ru'
+        }
+        console.log(sendData)
+        $.ajax({
+            type: 'POST',
+            url: 'mail/mail.php',
+            data: { name: "John", contact: "Boston" },
+            success: function(result) {
+                alert(result);
+            }
+        });
+
 
         // $.ajax({
         //     type: $(this).attr('method'),
