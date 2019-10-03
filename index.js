@@ -1384,7 +1384,9 @@ function actionPage(data) {
     $('form').submit(async (event) => {
         event.preventDefault();
         let theme = 'Без темы'
-        let name = $(this).children('[name = "name"]')
+        let name = document.querySelector('[name="name"]').value
+        let number = document.querySelector('[name="number"]').value
+        let email = document.querySelector('[name="email"]').value
         console.log(name)
         const sendType = localStorage.getItem('send_type');
         switch (sendType) {
@@ -1398,8 +1400,8 @@ function actionPage(data) {
             good: db.items[localStorage.getItem('number_detail')].title_name,
             category: db.items[localStorage.getItem('number_detail')].title_declaration,
             name: name,
-            number: '+79845487541',
-            email: 'rembo@mail.ru',
+            number: number,
+            email: email,
             theme: theme
         }
         console.log(sendData)
