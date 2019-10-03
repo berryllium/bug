@@ -8,6 +8,9 @@
 // import actionPage from './modules/actionPage';
 //import getData from './modules/getData';
 
+//переменная, содержащая массив полученных товаров
+let db
+
 
 //получение данных с сервера
 function getData() {
@@ -1380,17 +1383,30 @@ function actionPage(data) {
 
     $('form').submit(async (event) => {
         event.preventDefault();
+        let theme = 'Без темы'
+        let name = $(this).children('[name = "name"]')
+        console.log(name)
         const sendType = localStorage.getItem('send_type');
+        switch (sendType) {
+             case 'order_item' : {
+                 theme = 'Заказ товара'
+             }
+             break
+             default : theme = 'Без темы'
+        }
         const sendData = {
-            good: localStorage.getItem('number_detal'),
-            name: 'Вася',
-            cotact: 'rembo@mail.ru'
+            good: db.items[localStorage.getItem('number_detail')].title_name,
+            category: db.items[localStorage.getItem('number_detail')].title_declaration,
+            name: name,
+            number: '+79845487541',
+            email: 'rembo@mail.ru',
+            theme: theme
         }
         console.log(sendData)
         $.ajax({
             type: 'POST',
             url: 'mail/mail.php',
-            data: { name: "John", contact: "Boston" },
+            data: sendData,
             success: function(result) {
                 alert(result);
             }
@@ -1491,7 +1507,7 @@ function actionPage(data) {
 
 //Ассинхронная функция
 (async function(){
-    const db = await getData();
+    db = await getData();
     console.log(db);
     if (localStorage.getItem('basket_items') == null) {
         localStorage.setItem('basket_items', '');

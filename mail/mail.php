@@ -1,10 +1,18 @@
 <?php
 require ("PHPMailer-master/src/PHPMailer.php");
 require ("PHPMailer-master/src/SMTP.php");
-if (isset($_POST['name']) && isset($_POST['contact'])) {
+if (isset($_POST['name']) && isset($_POST['number']) && isset($_POST['email']) && isset($_POST['theme']) && isset($_POST['good'])) {
     $name = $_POST['name'];
-    $contact = $_POST['contact'];
-    $text = 'С нами хочет связаться ' . $name . ', контактные данные: ' . $contact;
+    $number = $_POST['number'];
+    $email = $_POST['email'];
+    $theme = $_POST['theme'];
+    $good = $_POST['good'];
+    $category = $_POST['category'];
+		$text = "Имя клиента: " . $name
+		."<br>Телефон: " .$number
+		."<br>E-mail: " .$email
+		."<br>Товар: " .$good
+		."<br>Категория: ".$category;
 	$success = 'Спасибо, ' . $_POST['name'] . '! Скоро мы с Вами свяжемся!';
     $header = 'From: freestuff47.ru@beget.com\r\n';
 	
@@ -23,20 +31,22 @@ if (isset($_POST['name']) && isset($_POST['contact'])) {
 		$mail->Password = 'Placebo1';
 		$mail->IsHTML(true);
 		$mail->SetFrom('australia@freestuff47.ru');
-		$mail->Subject = 'Туры в Австралию';
+		$mail->Subject = $theme;
 		$mail->Body = $text;
 		$mail->AddAddress('gorkundp@yandex.ru');
 		if (!$mail->Send()) {
 			$result = 'Ошибка отправки формы: ' . $mail->ErrorInfo;
+			return;
 		} else {
 			$result = $success;
+			return;
 		}
 		
 	
      
 } else {
 	
-    $result = 'Ой, что-то пошло не так. Отправка данных не выполнена, попробуйте позднее!';
+    $result = 'Ой, что-то пошло не так. Отправка данных не выполнена, попробуйте позднее!'.$name.$email.$number.$good;
 }
 echo $result;
 ?>
