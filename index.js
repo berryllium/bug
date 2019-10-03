@@ -1384,21 +1384,34 @@ function actionPage(data) {
     $('form').submit(async (event) => {
         event.preventDefault();
         let theme = 'Без темы'
+        let good = ''
+        let category = ''
+        let cart = JSON.parse(localStorage.getItem('basket_items'))
         let name = document.querySelector('[name="name"]').value
         let number = document.querySelector('[name="number"]').value
         let email = document.querySelector('[name="email"]').value
-        console.log(name)
-        const sendType = localStorage.getItem('send_type');
+        const sendType = localStorage.getItem('send_type')
         switch (sendType) {
              case 'order_item' : {
-                 theme = 'Заказ товара'
+                 theme = 'Заказ товара Luxor'
+                 good =  db.items[localStorage.getItem('number_detail')].title_name + ' ('
+                 good += db.items[localStorage.getItem('number_detail')].title_declaration + ')'
+                 break
              }
-             break
+             case 'basket_order' : {
+                theme = 'Корзина Luxor'
+                good = '<br>  '
+                cart.forEach(function(el){
+                    good += '  ' + db.items[el.id].title_name + ' ('
+                    good += db.items[el.id].title_declaration + ') '
+                    good += el.count + 'шт <br>'
+                })
+                break
+            } 
              default : theme = 'Без темы'
         }
         const sendData = {
-            good: db.items[localStorage.getItem('number_detail')].title_name,
-            category: db.items[localStorage.getItem('number_detail')].title_declaration,
+            good: good,
             name: name,
             number: number,
             email: email,
@@ -1410,7 +1423,7 @@ function actionPage(data) {
             url: 'mail/mail.php',
             data: sendData,
             success: function(result) {
-                alert(result);
+                console.log(result);
             }
         });
 

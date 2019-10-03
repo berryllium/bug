@@ -7,12 +7,10 @@ if (isset($_POST['name']) && isset($_POST['number']) && isset($_POST['email']) &
     $email = $_POST['email'];
     $theme = $_POST['theme'];
     $good = $_POST['good'];
-    $category = $_POST['category'];
 		$text = "Имя клиента: " . $name
 		."<br>Телефон: " .$number
 		."<br>E-mail: " .$email
-		."<br>Товар: " .$good
-		."<br>Категория: ".$category;
+		."<br>Товар: " .$good;
 	$success = 'Спасибо, ' . $_POST['name'] . '! Скоро мы с Вами свяжемся!';
     $header = 'From: freestuff47.ru@beget.com\r\n';
 	
