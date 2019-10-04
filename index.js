@@ -75,7 +75,8 @@ function renderItems(data) {
     let iArr = 1,
         iPage = 1,
         iFotorama = 1,
-        numberPage;
+        numberPage,
+        countRab = 0;
     data.items.forEach((item) => {
         if (localStorage.getItem('sale') === null) localStorage.setItem('sale', 'false');
         if (localStorage.getItem('male') === item.male || localStorage.getItem('male') === 'all') {
@@ -105,9 +106,14 @@ function renderItems(data) {
                             </div>
                         </div>
                     `;
-                    
+                    countRab++
+                    if (countRab >= localStorage.getItem('count_items')) {
+                        iPage++
+                        countRab = 0
+                    }
                     itemsWrapper.appendChild(card);
-
+                    
+                    
 
                     //order_________________________________
                     const itemOrderButton = card.querySelector('.order-item-button');
@@ -1501,7 +1507,13 @@ function actionPage(data) {
 //end добавление событий на страницах
 
 //реализация кнопки show и пагинации
-
+// $(function() {
+//     $(#light-pagination).pagination({
+//         items: 30,
+//         itemsOnPage: 5,
+//         cssStyle: 'light-theme'
+//     });
+// });
 
 
 
