@@ -430,6 +430,7 @@ function renderItems(data) {
         const currentButton = document.querySelector('.' + 'page' + i);
         currentButton.addEventListener('click', (e) => {
             changePage(i);
+            numberPage = i;
         });
     }
 
