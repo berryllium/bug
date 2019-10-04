@@ -220,11 +220,14 @@ function renderItems(data) {
         // //order__item_______________________________
 
     });
-
+    // if (localStorage.getItem('count_items') == 0)
+    // iPage--
 
     //pages_________________________________________
     const items = document.querySelectorAll('.item_rab');
     const buttonsWrapper = document.querySelector('.pages-buttons-wrapper');
+
+   if (items.length == localStorage.getItem('count_items')*(iPage-1)) iPage--
 
 
     const showButton = document.querySelector('.show-number-button');
@@ -277,6 +280,13 @@ function renderItems(data) {
         });
         
         const buttons = document.querySelectorAll('.current_buttons');
+        buttons.forEach(el => {
+            let page = 'page' + numberPage
+            if (el.classList.contains(page)) {
+                buttons.forEach(el => el.classList.remove('currentPageButton'))
+                el.classList.add('currentPageButton')
+            }
+        })
         console.log("/______________________");
         console.log(buttons);
         console.log(buttons[0]);
@@ -419,8 +429,6 @@ function renderItems(data) {
     for(let i = 1; i <= iPage; i++) {
         const currentButton = document.querySelector('.' + 'page' + i);
         currentButton.addEventListener('click', (e) => {
-            document.querySelectorAll('.current_buttons').forEach(el => el.classList.remove('currentPageButton'))
-            e.target.classList.add('currentPageButton')
             changePage(i);
         });
     }
