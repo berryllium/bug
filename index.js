@@ -1386,7 +1386,7 @@ function actionPage(data) {
         let theme = 'Без темы'
         let good = ''
         let category = ''
-        let cart = JSON.parse(localStorage.getItem('basket_items'))
+        let cart = localStorage.getItem('basket_items') ? JSON.parse(localStorage.getItem('basket_items')) : ''
         let name = document.querySelector('[name="name"]').value
         let number = document.querySelector('[name="number"]').value
         let email = document.querySelector('[name="email"]').value
@@ -1504,22 +1504,6 @@ function actionPage(data) {
 
 
 
-
-
-
-
-
-
-
-// getData().then((data) => {
-//     renderCards(data);
-//     renderCatalog();
-//     toggleCheckBox();
-//     toggleCart();
-//     addCart();
-//     actionPage();
-// });
-
 //Ассинхронная функция
 (async function(){
     db = await getData();
@@ -1544,16 +1528,4 @@ function actionPage(data) {
         //filterItems(db);
     }
     actionPage(db);
-
-
-
-
-    
- //   actionPage();
-    
-    // renderCatalog();
-    // toggleCheckBox();
-    // toggleCart();
-    // addCart();
-    // actionPage();
 }());
