@@ -13,6 +13,9 @@ body {
   color: #ffffff;
   font-family: "RobotoRegular", sans-serif;
 }
+.hidden {
+  display: none;
+}
 .green-button {
   background-color: #c4b221;
   color: #ffffff;

@@ -36,7 +36,7 @@ function getData() {
 
 //выводим товары
 function renderItems(data) {
-
+    
     console.log(localStorage.getItem('male'));
     console.log(localStorage.getItem('category'));
     console.log(localStorage.getItem('sale'));
@@ -161,7 +161,7 @@ function renderItems(data) {
                         const buttonImg = basketButton.querySelector('.item-button-img');
                         buttonImg.setAttribute('src', './img/items/black_basket.png');
                         console.log(buttonImg);
-
+                        countBasket();
                         //  localStorage.removeItem('basket_items');
                     });
 
@@ -365,7 +365,7 @@ function renderItems(data) {
         //     }
         //     lItem++;
         // });
-
+     
 
 
 
@@ -373,7 +373,7 @@ function renderItems(data) {
     }
     //changePage____________________________________
 
-
+    
 //currentButtons__________________________________________
 
     let prevButton = document.createElement('div');
@@ -501,10 +501,18 @@ function renderItems(data) {
     // }
     //pages_________________________________________
 
+
+
 }
 // end выводим товары
 
-
+function countBasket() {
+    let count = document.querySelector('.count-basket')
+    if (localStorage.basket_items != 0) {
+        count.innerHTML = JSON.parse(localStorage.basket_items).length
+        count.classList.remove('hidden')
+    } else count.classList.add('hidden')
+}
 
 
 
@@ -1549,6 +1557,7 @@ function actionPage(data) {
     //console.log((document.location.href).substr(document.location.href.length - 10));
     if ((document.location.href).substr(document.location.href.length - 10) == "items.html") {
         renderItems(db);
+        countBasket();
         //filterItems(db);
     }
     if ((document.location.href).substr(document.location.href.length - 11) == "detail.html") {
