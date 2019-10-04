@@ -225,6 +225,7 @@ label {
   font-weight: 100;
 }
 .fill-wrapper .basket-wrapper {
+  position: relative;
   display: inline-block;
   text-align: center;
 }
@@ -237,6 +238,21 @@ label {
   display: block;
   font-size: 10pt;
   font-weight: 100;
+}
+.fill-wrapper .basket-wrapper .count-basket {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+  width: 15px;
+  height: 15px;
+  font-size: 10px;
+  border-radius: 50%;
+  background-color: #ffff00;
+  color: black;
 }
 .main-footer .col-md-3 {
   padding: none;
@@ -482,6 +498,7 @@ label {
   will-change: auto;
 }
 .nav-link-wrapper {
+  cursor: pointer;
   display: inline-block;
   margin-top: 15px;
   text-align: left;
@@ -1136,6 +1153,7 @@ label {
   color: #ffffff;
 }
 .popup-menu-content .menu-main-a {
+  cursor: pointer;
   display: block;
   font-size: 16pt;
   color: #ffffff;

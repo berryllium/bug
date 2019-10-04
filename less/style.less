@@ -336,6 +336,7 @@ body {
 
 	}
 	.basket-wrapper {
+		position: relative;
 		display: inline-block;
 		text-align: center;
 		img {
@@ -347,6 +348,21 @@ body {
 			display: block;
 			font-size: 10pt;
 			font-weight: 100;
+		}
+		.count-basket {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 0;
+			width: 15px;
+			height: 15px;
+			font-size: 10px;
+			border-radius: 50%;
+			background-color: #ffff00;
+			color: black;
 		}
 	}
 }
@@ -401,9 +417,6 @@ body {
 				}
 				.pad-rig-t {
 					padding-right: 20px !important;
-				}
-				img {
-					;
 				}
 				
 			}
@@ -678,6 +691,7 @@ body {
 //MATERIALS___________________________________________________________
 
 .nav-link-wrapper {
+	cursor: pointer;
 	display: inline-block;
 	margin-top: 15px;
 	text-align: left;
@@ -1019,6 +1033,7 @@ body {
 		}
 	}
 }
+
 
 //END_ITEMS______________________________________________________
 
@@ -1442,6 +1457,7 @@ body {
 		}
 		
 		.menu-main-a {
+			cursor: pointer;
 			display: block;
 			font-size: 16pt;
 			color: @white;
