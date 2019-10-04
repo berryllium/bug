@@ -72,6 +72,7 @@ function renderItems(data) {
     //SALE__________________________
 
     const itemsWrapper = document.querySelector('.items-wrapper');
+    
     let iArr = 1,
         iPage = 1,
         iFotorama = 1,
@@ -264,6 +265,7 @@ function renderItems(data) {
 
 
     //changePage____________________________________
+    
     function changePage(numberPage) {   
         items.forEach( item => {
             console.log(numberPage);
@@ -273,6 +275,7 @@ function renderItems(data) {
                 item.style.display = 'none';
             } 
         });
+        
         const buttons = document.querySelectorAll('.current_buttons');
         console.log("/______________________");
         console.log(buttons);
@@ -386,6 +389,7 @@ function renderItems(data) {
         console.log(iButton);
         buttonsWrapper.append(iButton);
         console.log(buttonsWrapper);
+        document.querySelector('.page1').classList.add('currentPageButton')
     }
 
     nextButton.innerHTML = `
@@ -414,7 +418,9 @@ function renderItems(data) {
     });
     for(let i = 1; i <= iPage; i++) {
         const currentButton = document.querySelector('.' + 'page' + i);
-        currentButton.addEventListener('click', () => {
+        currentButton.addEventListener('click', (e) => {
+            document.querySelectorAll('.current_buttons').forEach(el => el.classList.remove('currentPageButton'))
+            e.target.classList.add('currentPageButton')
             changePage(i);
         });
     }

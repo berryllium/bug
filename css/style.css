@@ -746,6 +746,9 @@ label {
 .nav-pages .current_buttons {
   display: none;
 }
+.nav-pages .currentPageButton {
+  background-color: #c4b221;
+}
 .nav-pages .pages-buttons-wrapper {
   text-align: right;
 }
