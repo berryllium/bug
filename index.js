@@ -846,7 +846,6 @@ function renderBasket(data) {
             localStorage.setItem('send_type', 'basket_order');
             $('.send_popup .main-form-btn').text('ОФОРМИТЬ ЗАКАЗ');
             $('.send_popup').show('fade', 300);
-            window.location.replace('items.html');
         });
         //end_order_________________________________
 
@@ -1419,9 +1418,11 @@ function actionPage(data) {
         let good = ''
         let category = ''
         let cart = localStorage.getItem('basket_items') ? JSON.parse(localStorage.getItem('basket_items')) : ''
+
         let name = document.querySelector('[name="name"]').value
         let number = document.querySelector('[name="number"]').value
         let email = document.querySelector('[name="email"]').value
+
         const sendType = localStorage.getItem('send_type')
         switch (sendType) {
              case 'order_item' : {
@@ -1430,6 +1431,12 @@ function actionPage(data) {
                  good += db.items[localStorage.getItem('number_detail')].title_declaration + ')'
                  break
              }
+             case 'order' : {
+                theme = 'Заказ товара Luxor'
+                good =  db.items[localStorage.getItem('number_detail')].title_name + ' ('
+                good += db.items[localStorage.getItem('number_detail')].title_declaration + ')'
+                break
+            }
              case 'basket_order' : {
                 theme = 'Корзина Luxor'
                 good = '<br>  '
@@ -1528,7 +1535,6 @@ function actionPage(data) {
         $('.popup').hide('fade', 300);
       });
       });
-
     //SEND_MAIL_______________________________________
 
 }
