@@ -515,10 +515,8 @@ function countBasket() {
         count.innerHTML = JSON.parse(localStorage.basket_items).length
         count.classList.remove('hidden')
     } else count.classList.add('hidden');
-    console.log([...localStorage.basket_items])
+    // console.log([...localStorage.basket_items])
 }
-// countBasket();
-// счетчик корзины
 
 
 
@@ -667,11 +665,11 @@ function renderDetail(data) {
 //Корзина
 function renderBasket(data) {
 
-    const itemsWrapper = document.querySelector('.items-wrapper'),
-          numbers = JSON.parse(localStorage.getItem('basket_items'));
+    const itemsWrapper = document.querySelector('.items-wrapper');
+    let numbers = ([...localStorage.basket_items].length > 2) ? JSON.parse(localStorage.getItem('basket_items')) : [];
     let items = data.items;
-
-    if ((JSON.parse(localStorage.getItem('basket_items'))).length == 0 ) {
+    console.log(numbers)
+    if ([...localStorage.basket_items].length < 2) {
         const card = document.createElement('div');
         card.className = 'row basket-item';
                 //HIGHT_______________________________________________________________
