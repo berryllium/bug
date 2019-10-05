@@ -506,6 +506,7 @@ function renderItems(data) {
 }
 // end выводим товары
 
+// счетчик корзины
 function countBasket() {
     let count = document.querySelector('.count-basket')
     if (localStorage.basket_items != 0) {
@@ -514,7 +515,7 @@ function countBasket() {
     } else count.classList.add('hidden')
     if ((count.innerHTML) == 0) count.classList.add('hidden') 
 }
-
+// счетчик корзины
 
 
 
@@ -639,7 +640,6 @@ function renderDetail(data) {
         $('.send_popup').show('fade', 300);
     });
     //end_order_________________________________
-
 }
 // end подробнее
 
