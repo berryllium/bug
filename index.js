@@ -501,7 +501,7 @@ function renderItems(data) {
     // }
     //pages_________________________________________
 
-
+    countBasket();
 
 }
 // end выводим товары
@@ -515,6 +515,7 @@ function countBasket() {
     } else count.classList.add('hidden')
     if ((count.innerHTML) == 0) count.classList.add('hidden') 
 }
+countBasket();
 // счетчик корзины
 
 
@@ -640,6 +641,7 @@ function renderDetail(data) {
         $('.send_popup').show('fade', 300);
     });
     //end_order_________________________________
+    countBasket();
 }
 // end подробнее
 
@@ -851,6 +853,7 @@ function renderBasket(data) {
 
 
     }
+    countBasket();
 }
 // end корзина
 
@@ -1559,7 +1562,6 @@ function actionPage(data) {
     //console.log((document.location.href).substr(document.location.href.length - 10));
     if ((document.location.href).substr(document.location.href.length - 10) == "items.html") {
         renderItems(db);
-        countBasket();
         //filterItems(db);
     }
     if ((document.location.href).substr(document.location.href.length - 11) == "detail.html") {
