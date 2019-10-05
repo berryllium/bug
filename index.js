@@ -865,6 +865,51 @@ function renderBasket(data) {
 
 
 //добавление событий на страницах
+
+// подписка
+let buf = document.querySelector('.subscribe-button');
+    buf.addEventListener('click', () => {
+        const subWrapper = document.querySelector('.set_sub'),
+              inpBtnWrapper = document.querySelector('.set_inp_btn'),
+              checkMan =  document.querySelector('#check_man'),
+              checkWoman =  document.querySelector('#check_woman'),
+              checkAgree =  document.querySelector('#check_agree'),
+              email = document.querySelector('.subscribe-input').value;
+              
+              let isValid = ($('#input_sub').val().match(/.+?\@.+/g) || []).length === 1;
+
+        if (isValid && checkAgree.checked && (checkMan.checked || checkWoman.checked)) {
+            $('.header_thx').text('СПАСИБО!');
+            $('.text_thx').text('Вы успешно подписаны на нашу новостную рассылку.');
+
+            //SUBSCRIBE________________________________________________________________________
+            let sex = ''
+            if (checkWoman.checked) sex += 'Женщины '
+            if (checkMan.checked) sex += 'Мужчины '
+            localStorage.setItem('send_type', 'subscribe')
+
+            $.ajax({
+                type: 'POST',
+                url: 'mail/mail.php',
+                data: {
+                    email: email, 
+                    send_type: localStorage.getItem('send_type'),
+                    theme: 'Подписка Luxor',
+                    sex: sex
+                },
+                success: function(result) {
+                    console.log(result);
+                }
+            });
+            //SUBSCRIBE________________________________________________________________________
+
+
+            inpBtnWrapper.style.display = 'none';
+            subWrapper.style.display = 'none';
+        } else alert('Введите корректный email и согласитесь с уловиями')
+    });
+
+// асинхронные события
 function actionPage(data) {
 
     //header____________________________________________
@@ -1157,7 +1202,9 @@ function actionPage(data) {
     });
     
     buf = document.querySelector('.subscribe-button');
+    alert('tes')
     buf.addEventListener('click', () => {
+        alert('test')
         const subWrapper = document.querySelector('.set_sub'),
               inpBtnWrapper = document.querySelector('.set_inp_btn'),
               checkMan =  document.querySelector('#check_man'),
@@ -1170,14 +1217,14 @@ function actionPage(data) {
             $('.header_thx').text('СПАСИБО!');
             $('.text_thx').text('Вы успешно подписаны на нашу новостную рассылку.');
 
-            
+            alert('SUB!')
             //SUBSCRIBE________________________________________________________________________
             //SUBSCRIBE________________________________________________________________________
 
 
             inpBtnWrapper.style.display = 'none';
             subWrapper.style.display = 'none';
-        }
+        } else alert('ups')
     });
 
 
@@ -1417,15 +1464,32 @@ function actionPage(data) {
         event.preventDefault();
         let theme = 'Без темы'
         let good = ''
-        let category = ''
+        let feedback = ''
         let cart = localStorage.getItem('basket_items') ? JSON.parse(localStorage.getItem('basket_items')) : ''
 
         let name = document.querySelector('[name="name"]').value
         let number = document.querySelector('[name="number"]').value
         let email = document.querySelector('[name="email"]').value
 
-        const sendType = localStorage.getItem('send_type')
-        switch (sendType) {
+        const send_type = localStorage.getItem('send_type')
+        switch (send_type) {
+            case 'call_us' : {
+                let pop_up_call = document.querySelector('.send_popup')
+                theme = 'Обратный звонок Luxor'
+                name = pop_up_call.querySelector('[name="name"]').value
+                number = pop_up_call.querySelector('[name="number"]').value
+                email = pop_up_call.querySelector('[name="email"]').value
+                break
+            }
+            case 'feedback' : {
+                let pop_up_feedback = document.querySelector('.feedback_popup-form')
+                theme = 'Отзыв Luxor'
+                name = pop_up_feedback.querySelector('[name="name"]').value
+                number = pop_up_feedback.querySelector('[name="number"]').value
+                email = pop_up_feedback.querySelector('[name="email"]').value
+                feedback = pop_up_feedback.querySelector('[name="feedback"]').value
+                break
+            }
              case 'order_item' : {
                  theme = 'Заказ товара Luxor'
                  good =  db.items[localStorage.getItem('number_detail')].title_name + ' ('
@@ -1457,7 +1521,9 @@ function actionPage(data) {
             name: name,
             number: number,
             email: email,
-            theme: theme
+            theme: theme,
+            feedback: feedback,
+            send_type: send_type
         }
         console.log(sendData)
         $.ajax({
@@ -1539,6 +1605,11 @@ function actionPage(data) {
     //SEND_MAIL_______________________________________
 
 }
+
+document.querySelector('.subscribe-input').addEventListener('click', () => {
+        const subWrapper = document.querySelector('.set_sub');
+        subWrapper.style.display = 'block';
+    });
 //end добавление событий на страницах
 
 //реализация кнопки show и пагинации

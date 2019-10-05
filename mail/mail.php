@@ -1,16 +1,37 @@
 <?php
 require ("PHPMailer-master/src/PHPMailer.php");
 require ("PHPMailer-master/src/SMTP.php");
-if (isset($_POST['name']) && isset($_POST['number']) && isset($_POST['email']) && isset($_POST['theme']) && isset($_POST['good'])) {
-    $name = $_POST['name'];
+if (isset($_POST['send_type'])) {
+	$send_type = $_POST['send_type'];
+	$name = $_POST['name'];
     $number = $_POST['number'];
     $email = $_POST['email'];
     $theme = $_POST['theme'];
-    $good = $_POST['good'];
+	$good = $_POST['good'];
+	$feedback = $_POST['feedback'];
+	$sex = $_POST['sex'];
+
+	
+	if ($send_type == 'feedback') {
+		$text = "Имя клиента: " . $name
+		."<br>Телефон: " .$number
+		."<br>E-mail: " .$email
+		."<br>Отзыв: " .$feedback;
+	} elseif ($send_type == 'call_us') {
+		$text = "Имя клиента: " . $name
+		."<br>Телефон: " .$number
+		."<br>E-mail: " .$email;
+	} elseif ($send_type == 'subscribe') {
+		$text = "<br>E-mail: " .$email
+		."<br>Пол: " .$sex;
+	}
+	else {
 		$text = "Имя клиента: " . $name
 		."<br>Телефон: " .$number
 		."<br>E-mail: " .$email
 		."<br>Товар: " .$good;
+	} 
+		
 	$success = 'Спасибо, ' . $_POST['name'] . '! Скоро мы с Вами свяжемся!';
     $header = 'From: freestuff47.ru@beget.com\r\n';
 	
