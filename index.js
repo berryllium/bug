@@ -510,11 +510,12 @@ function renderItems(data) {
 function countBasket() {
     
     let count = document.querySelector('.count-basket')
-    if (localStorage.basket_items != 0) {
+    // если массив корзины содержит что-то большее, чем []
+    if ([...localStorage.basket_items].length > 2) {
         count.innerHTML = JSON.parse(localStorage.basket_items).length
         count.classList.remove('hidden')
     } else count.classList.add('hidden');
-    alert(localStorage.basket_items)
+    console.log([...localStorage.basket_items])
 }
 // countBasket();
 // счетчик корзины
