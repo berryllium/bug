@@ -92,7 +92,7 @@ function renderItems(data) {
                     card.innerHTML = `
                         <div class="item-cart">
                             <div id="fotorama${iFotorama}" class="fotorama">
-                                <img src="${item.img1}">
+                                <img class="item_img" src="${item.img1}">
                             </div>
                             <div class="item-text-wrapper">
                             <p id="item_name">${item.title_declaration} "${item.title_name}"</p>
@@ -512,6 +512,7 @@ function countBasket() {
         count.innerHTML = JSON.parse(localStorage.basket_items).length
         count.classList.remove('hidden')
     } else count.classList.add('hidden')
+    if ((count.innerHTML) == 0) count.classList.add('hidden') 
 }
 
 
@@ -764,6 +765,7 @@ function renderBasket(data) {
                     basketTotalPrice.textContent = parseFloat(basketTotalPrice.textContent) + 
                     parseFloat(items[basket[n].id].price * basket[n].count);
                 }
+                countBasket()
                 //CHANGE_TOTAL_PRICE
             });
             //DELETE
