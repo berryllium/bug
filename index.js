@@ -501,20 +501,22 @@ function renderItems(data) {
     // }
     //pages_________________________________________
 
-
+    countBasket();
 
 }
 // end выводим товары
 
 // счетчик корзины
 function countBasket() {
+    
     let count = document.querySelector('.count-basket')
     if (localStorage.basket_items != 0) {
         count.innerHTML = JSON.parse(localStorage.basket_items).length
         count.classList.remove('hidden')
-    } else count.classList.add('hidden')
-    if ((count.innerHTML) == 0) count.classList.add('hidden') 
+    } else count.classList.add('hidden');
+    alert(localStorage.basket_items)
 }
+// countBasket();
 // счетчик корзины
 
 
@@ -640,6 +642,7 @@ function renderDetail(data) {
         $('.send_popup').show('fade', 300);
     });
     //end_order_________________________________
+    countBasket();
 }
 // end подробнее
 
@@ -842,15 +845,12 @@ function renderBasket(data) {
             localStorage.setItem('send_type', 'basket_order');
             $('.send_popup .main-form-btn').text('ОФОРМИТЬ ЗАКАЗ');
             $('.send_popup').show('fade', 300);
+            window.location.replace('items.html');
         });
         //end_order_________________________________
 
-
-
-
-
-
     }
+    countBasket();
 }
 // end корзина
 
@@ -1437,6 +1437,8 @@ function actionPage(data) {
                     good += db.items[el.id].title_declaration + ') '
                     good += el.count + 'шт <br>'
                 })
+                // localStorage.setItem('basket_items', '')
+
                 break
             } 
              default : theme = 'Без темы'
@@ -1559,7 +1561,6 @@ function actionPage(data) {
     //console.log((document.location.href).substr(document.location.href.length - 10));
     if ((document.location.href).substr(document.location.href.length - 10) == "items.html") {
         renderItems(db);
-        countBasket();
         //filterItems(db);
     }
     if ((document.location.href).substr(document.location.href.length - 11) == "detail.html") {
