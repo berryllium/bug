@@ -234,7 +234,66 @@
       </div>
     </div> 
 
+    <div class="popup feedback_popup">
+      <!-- Само (белое) модальное окно -->
+      <div class="feedback_popup-dialog">
+        <!-- Содержимое модального окна -->
+        <div class="feedback_popup-content">
+          <button class="popup-close feedback_popup-close">&times;</button>
+          <!-- Заголовок окна -->
+          <h3 class="feedback_popup-header">
+            Есть вопросы?
+          </h3>
+          <p>Оставьте свои контактные данные<br> для связи</p>
+          <div class="main-form feedback_popup-form">
+            <form action="#">
+              <label for="#">Ваше имя</label>
+              <input class="main-form-input" type="text" name="name">
+              <label for="#">Номер телефона</label>
+              <input class="main-form-input" type="text" name="number">
+              <label for="#">Email</label>
+              <input class="main-form-input" type="text" name="email"><br>
+              <label style="text-align: left;" for="#">Сообщение:</label><br>
+              <textarea class="main-form-input" rows="5" name="feedback"></textarea><br>
+              <div class="popup-button-wrapper">
+                <button class= "main-form-btn button" type="submit">НАПИСАТЬ</button>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div> 
 
+
+    <div class="popup send_popup">
+      <!-- Само (белое) модальное окно -->
+      <div class="send_popup-dialog">
+        <!-- Содержимое модального окна -->
+        <div class="send_popup-content">
+          <button class="send_popup-close popup-close ">&times;</button>
+          <!-- Заголовок окна -->
+          <h3 class="send_popup-header">
+            Обратный звонок
+          </h3>
+          <div class="main-form send_popup-form">
+            <form class="send_form" action="#">
+              <label for="#">Ваше имя</label>
+              <input class="main-form-input" type="text" name="name" required>
+              <label for="#">Номер телефона</label>
+              <input class="main-form-input" type="text" name="number" required>
+              <label for="#">Email</label>
+              <input class="main-form-input" type="text" name="email" required><br>
+              <br>
+              <div class="popup-button-wrapper">
+                <button type="submit"  class= "main-form-btn button">ОТПРАВИТЬ</button>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div> 
 
 
 
@@ -332,12 +391,12 @@
                 <a href="">qwe@mail.ru</a>
                 <div class="buttons-wrapper">
                   <div class="button-wrapper">
-                    <button class="call-us green-button">
+                    <button id="call_us_btn" class="call-us green-button">
                         <p>ОБРАТНЫЙ ЗВОНОК</p>
                     </button>
                   </div>
                   <div class="button-wrapper">
-                    <button class="feedback white-green-button">
+                    <button id="feedback_btn" class="feedback white-green-button">
                       <p>НАПИСАТЬ НАМ</p>
                       <img src="./img/footer/message.png" alt="">
                     </button>

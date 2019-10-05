@@ -502,6 +502,7 @@ function renderItems(data) {
     //pages_________________________________________
 
     countBasket();
+    initButtons();
 
 }
 // end выводим товары
@@ -642,6 +643,7 @@ function renderDetail(data) {
     });
     //end_order_________________________________
     countBasket();
+    initButtons();
 }
 // end подробнее
 
@@ -769,7 +771,7 @@ function renderBasket(data) {
                 }
                 countBasket()
                 //CHANGE_TOTAL_PRICE
-                document.querySelector('.basket_order_button').classList.add('hidden')
+                if (localStorage.getItem('basket_items') == '[]') document.querySelector('.basket_order_button').classList.add('hidden')
             });
             //DELETE
 
@@ -852,6 +854,7 @@ function renderBasket(data) {
 
     }
     countBasket();
+    initButtons();
 }
 // end корзина
 
@@ -865,9 +868,48 @@ function renderBasket(data) {
 
 
 //добавление событий на страницах
+function initButtons () {
+//buttons__________
+if ($('#call_us_btn') != null) {
+    $('#call_us_btn').on('click', function(event) {
+        event.preventDefault();
+        localStorage.setItem('send_type', 'call_us');
+        $('.send_popup').show('fade', 300);
+      });
+}
+
+if ($('#feedback_btn') != null) {
+    $('#feedback_btn').on('click', function(event) {
+        event.preventDefault();
+        localStorage.setItem('send_type', 'feedback');
+        $('.feedback_popup').show('fade', 300);
+      });
+}
+
+if ($('.send_popup-close') != null) {
+    $('.send_popup-close').on('click', function(event) {
+        event.preventDefault();
+        $('.send_popup').hide('fade', 300);
+      });
+}
+  
+
+  if ($('.feedback_popup-close') != null) {
+    $('.feedback_popup-close').on('click', function(event) {
+        event.preventDefault();
+        $('.feedback_popup').hide('fade', 300);
+      });
+  }
+
+  
+//buttons__________
+}
+    
 
 // подписка
 let buf = document.querySelector('.subscribe-button');
+if (buf != null) {
+    console.log(buf)
     buf.addEventListener('click', () => {
         const subWrapper = document.querySelector('.set_sub'),
               inpBtnWrapper = document.querySelector('.set_inp_btn'),
@@ -908,7 +950,7 @@ let buf = document.querySelector('.subscribe-button');
             subWrapper.style.display = 'none';
         } else alert('Введите корректный email и согласитесь с уловиями')
     });
-
+}
 // асинхронные события
 function actionPage(data) {
 
@@ -1195,37 +1237,34 @@ function actionPage(data) {
     });
 
 
-    buf = document.querySelector('.subscribe-input');
-    buf.addEventListener('click', () => {
-        const subWrapper = document.querySelector('.set_sub');
-        subWrapper.style.display = 'block';
-    });
+    // buf = document.querySelector('.subscribe-input');
+    // buf.addEventListener('click', () => {
+    //     const subWrapper = document.querySelector('.set_sub');
+    //     subWrapper.style.display = 'block';
+    // });
     
-    buf = document.querySelector('.subscribe-button');
-    alert('tes')
-    buf.addEventListener('click', () => {
-        alert('test')
-        const subWrapper = document.querySelector('.set_sub'),
-              inpBtnWrapper = document.querySelector('.set_inp_btn'),
-              checkMan =  document.querySelector('#check_man'),
-              checkWoman =  document.querySelector('#check_woman'),
-              checkAgree =  document.querySelector('#check_agree');
+    // buf = document.querySelector('.subscribe-button');
+    // buf.addEventListener('click', () => {
+    //     const subWrapper = document.querySelector('.set_sub'),
+    //           inpBtnWrapper = document.querySelector('.set_inp_btn'),
+    //           checkMan =  document.querySelector('#check_man'),
+    //           checkWoman =  document.querySelector('#check_woman'),
+    //           checkAgree =  document.querySelector('#check_agree');
               
-              let isValid = ($('#input_sub').val().match(/.+?\@.+/g) || []).length === 1;
+    //           let isValid = ($('#input_sub').val().match(/.+?\@.+/g) || []).length === 1;
 
-        if (isValid && checkAgree.checked && (checkMan.checked || checkWoman.checked)) {
-            $('.header_thx').text('СПАСИБО!');
-            $('.text_thx').text('Вы успешно подписаны на нашу новостную рассылку.');
+    //     if (isValid && checkAgree.checked && (checkMan.checked || checkWoman.checked)) {
+    //         $('.header_thx').text('СПАСИБО!');
+    //         $('.text_thx').text('Вы успешно подписаны на нашу новостную рассылку.');
 
-            alert('SUB!')
-            //SUBSCRIBE________________________________________________________________________
-            //SUBSCRIBE________________________________________________________________________
+    //         //SUBSCRIBE________________________________________________________________________
+    //         //SUBSCRIBE________________________________________________________________________
 
 
-            inpBtnWrapper.style.display = 'none';
-            subWrapper.style.display = 'none';
-        } else alert('ups')
-    });
+    //         inpBtnWrapper.style.display = 'none';
+    //         subWrapper.style.display = 'none';
+    //     } else alert('ups')
+    // });
 
 
 
@@ -1605,26 +1644,14 @@ function actionPage(data) {
     //SEND_MAIL_______________________________________
 
 }
-
+if (document.querySelector('.subscribe-input') != null) {
 document.querySelector('.subscribe-input').addEventListener('click', () => {
         const subWrapper = document.querySelector('.set_sub');
         subWrapper.style.display = 'block';
     });
+}
 //end добавление событий на страницах
 
-//реализация кнопки show и пагинации
-// $(function() {
-//     $(#light-pagination).pagination({
-//         items: 30,
-//         itemsOnPage: 5,
-//         cssStyle: 'light-theme'
-//     });
-// });
-
-
-
-
-//end_реализация кнопки show и пагинации
 
 
 //Ассинхронная функция
