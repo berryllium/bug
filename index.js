@@ -771,6 +771,7 @@ function renderBasket(data) {
                 }
                 countBasket()
                 //CHANGE_TOTAL_PRICE
+                document.querySelector('.basket_order_button').classList.add('hidden')
             });
             //DELETE
 
@@ -834,10 +835,12 @@ function renderBasket(data) {
                     basketTotalPrice.textContent = parseFloat(basketTotalPrice.textContent) + 
                     parseFloat(items[basket[n].id].price * basket[n].count);
                 }
-                //CHANGE_TOTAL_PRICE
+                //__CHANGE_TOTAL_PRICE
             });
             //CHANGE_COUNT_UP
-
+            let cartButton = document.querySelector('.basket_order_button')
+            if ([...localStorage.basket_items].length > 2) cartButton.classList.remove('hidden')
+            else cartButton.classList.add('hidden')
         });
 
         //order_________________________________
