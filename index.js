@@ -1680,6 +1680,8 @@ function actionPage(data) {
                 name = pop_up_buy.querySelector('[name="name"]').value
                 number = pop_up_buy.querySelector('[name="number"]').value
                 email = pop_up_buy.querySelector('[name="email"]').value
+                good =  db.items[localStorage.getItem('number_detail')].title_name + ' ('
+                good += db.items[localStorage.getItem('number_detail')].title_declaration + ')'
                 break
             }
             case 'basket_order': {
