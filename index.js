@@ -1513,7 +1513,7 @@ function actionPage(data) {
         const send_type = localStorage.getItem('send_type')
         switch (send_type) {
             case 'call_us' : {
-                let pop_up_call = document.querySelector('.send_popup')
+                let pop_up_call = document.querySelector('.call_popup_form')
                 theme = 'Обратный звонок Luxor'
                 name = pop_up_call.querySelector('[name="name"]').value
                 number = pop_up_call.querySelector('[name="number"]').value
