@@ -2185,10 +2185,13 @@ label {
 	.logo-wrapper {
 		float: right;
 	}
-
+	.header-margin-wrapper .topmenu {
+		display: none;
+	}
 	.topmenu {
 		li {
 			text-align: left;
+			margin-top: 5px;
 		}
 
 		img {
@@ -2301,8 +2304,20 @@ label {
 
 	.nav-wrapper ul {
 		display              : grid;
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-columns: 1fr 1fr;
 	}
 
+	.sort .nav-link-wrapper {
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		margin-bottom: 10px;
+		p:first-child {
+			margin-bottom: 0;
+		}
+		p:not(:first-child) {
+			display: none;
+		}
+	}
 
 }
