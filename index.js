@@ -630,6 +630,7 @@ function renderDetail(data) {
             } 
             localStorage.setItem('basket_items', JSON.stringify(basket));
             console.log('BASKET:'+(localStorage.getItem('basket_items')));
+            countBasket();
             //localStorage.removeItem('basket_items');
         });
 
