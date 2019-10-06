@@ -787,6 +787,7 @@ function renderBasket(data) {
                 countBasket()
                 //CHANGE_TOTAL_PRICE
                 if (localStorage.getItem('basket_items') == '[]') document.querySelector('.basket_order_button').classList.add('hidden')
+                else document.querySelector('.basket_order_button').classList.remove('hidden')
             });
             //DELETE
 
@@ -895,8 +896,8 @@ function renderBasket(data) {
 
 
     }
-
-    
+    if (localStorage.getItem('basket_items') == '[]') document.querySelector('.basket_order_button').classList.add('hidden')
+    else document.querySelector('.basket_order_button').classList.remove('hidden')
     countBasket();
     countLike();
     initButtons();
@@ -1005,6 +1006,7 @@ function renderLike(data) {
         //end_order_________________________________
         
     }
+
     countBasket();
     countLike();
     initButtons();
@@ -1813,8 +1815,6 @@ if (document.querySelector('.subscribe-input') != null) {
 //Ассинхронная функция
 (async function () {
     db = await getData();
-    countBasket();
-    countLike();
     initButtons();
     console.log(db);
     if (localStorage.getItem('basket_items') == null) {
@@ -1843,5 +1843,8 @@ if (document.querySelector('.subscribe-input') != null) {
         renderBasket(db);
         //filterItems(db);
     }
+
     actionPage(db);
+    countBasket();
+    countLike();
 }());
