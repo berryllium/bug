@@ -136,8 +136,8 @@ function renderItems(data) {
                         event.preventDefault();
                         localStorage.setItem('send_type', 'order_item');
                         localStorage.setItem('number_detail', item.id);
-                        $('.send_popup .main-form-btn').text('ЗАКАЗАТЬ');
-                        $('.send_popup').show('fade', 300);
+                        $('.buy_popup .main-form-btn').text('ЗАКАЗАТЬ');
+                        $('.buy_popup').show('fade', 300);
                         console.log(item.id)
                     });
                     //end_order_________________________________
@@ -1649,7 +1649,7 @@ function actionPage(data) {
         const send_type = localStorage.getItem('send_type')
         switch (send_type) {
             case 'call_us': {
-                let pop_up_call = document.querySelector('.call_popup_form')
+                let pop_up_call = document.querySelector('.call_popup-form')
                 theme = 'Обратный звонок Luxor'
                 name = pop_up_call.querySelector('[name="name"]').value
                 number = pop_up_call.querySelector('[name="number"]').value
@@ -1671,6 +1671,8 @@ function actionPage(data) {
                 name = pop_up_buy.querySelector('[name="name"]').value
                 number = pop_up_buy.querySelector('[name="number"]').value
                 email = pop_up_buy.querySelector('[name="email"]').value
+                good =  db.items[localStorage.getItem('number_detail')].title_name + ' ('
+                good += db.items[localStorage.getItem('number_detail')].title_declaration + ')'
                 break
             }
             case 'order': {
