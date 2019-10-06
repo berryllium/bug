@@ -1102,7 +1102,7 @@ if (buf != null) {
 
             inpBtnWrapper.style.display = 'none';
             subWrapper.style.display = 'none';
-        } else alert('Введите корректный email и согласитесь с уловиями')
+        } else alert('Введите email, выберите пол и согласитесь с условиями')
     });
 }
 // асинхронные события
