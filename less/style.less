@@ -1344,7 +1344,7 @@ label {
 			}
 
 			#basket-empty {
-				display: block;
+				display  : block;
 				color    : black;
 				font-size: 16px;
 			}
@@ -1427,9 +1427,9 @@ label {
 	}
 
 	.like-item {
-		margin-bottom: 15px;
-		display        : flex;
-		text-align     : center;
+		margin-bottom: 30px;
+		display      : flex;
+		text-align   : center;
 
 		.like-img-wrapper {
 			.item-img {
@@ -1440,26 +1440,32 @@ label {
 		}
 
 		.like-fill-item {
-			width: 100%;
+			overflow       : hidden;
+			width          : 100%;
 			display        : flex;
 			flex-direction : column;
 			justify-content: space-around;
 			padding        : 0 15px;
 
 			.name-strong {
-				display  : inline-block;
-				font-size: 18pt;
-				color    : @black;
+				overflow       : hidden;
+				display        : inline-block;
+				font-size      : 18pt;
+				color          : @black;
+				white-space    : nowrap;
 				text-align-last: left;
+				text-overflow  : ellipsis;
 			}
 
-			.p-button, .like-button-full, .like-button-basket {
-				cursor       : pointer;
-				padding: 5px;
+			.p-button,
+			.like-button-full,
+			.like-button-basket {
+				cursor          : pointer;
+				padding         : 5px;
 				background-color: @light-gray;
 				border          : 1px solid @gray;
-				color: @black;
-				width: 50%;
+				color           : @black;
+				width           : 150px;
 			}
 
 			.like-button-basket {
@@ -1479,7 +1485,8 @@ label {
 	}
 
 	.items-wrapper {
-		padding: 30px 0px 30px 40px;
+		background-color: white;
+		padding  : 30px 0px 30px 40px;
 		flex-wrap: wrap;
 	}
 
@@ -2025,83 +2032,7 @@ label {
 }
 
 @media (max-width: 1200px) {
-	.like-order-paint-wrapper {
-		//		text-align: center;
-	}
 
-	.like-main {
-		.items-wrapper {
-			padding: 15px 0px 0px 0px !important;
-		}
-
-		.like-paint-white-wrapper {
-			background-color: @light-gray;
-		}
-	}
-
-	.like-item {
-		text-align       : center;
-		//  border-bottom: @light-gray solid 5px;
-		background-color : @white;
-
-		.like-img-wrapper {
-			//			text-align: center;
-
-		}
-
-		.like-fill-item {
-			width      : 70%;
-			height     : 250px;
-			padding-top: 35px;
-
-			.like-gray-text {
-				display: block !important;
-				height : 25%;
-			}
-
-			.price-wrapper {
-				display: block !important;
-				width  : 100% !important;
-			}
-
-			.name-strong {
-				display: block !important;
-				width  : 100% !important;
-			}
-
-			.like-line {
-				display: none !important;
-				width  : 10%;
-			}
-
-			.like-buttons-wrapper {
-				display: block !important;
-				width  : 100% !important;
-			}
-
-			.like-gray-color {
-				display: block !important;
-				width  : 100% !important;
-			}
-
-			.like-buttons-wrapper {
-				display: block !important;
-			}
-
-			.like-price-wrapper {
-				display: inline-block !important;
-				width  : 45%;
-			}
-
-			.like-fill-p-wrapper {
-				display       : inline-block !important;
-				width         : 45%;
-				height        : 115px;
-				padding-top   : 10px;
-				vertical-align: top;
-			}
-		}
-	}
 }
 
 
@@ -2139,36 +2070,11 @@ label {
 }
 
 @media (max-width: 990px) {
-	.like-item {
-		text-align       : center;
-		//  border-bottom: @light-gray solid 5px;
-		background-color : @white;
-
-		.like-img-wrapper {
-			//			text-align: center;
-			padding-top    : 20px;
-			padding-bottom : 5px;
-
-		}
-	}
-
-	.like-main {
-		.like-paint-white-wrapper {
-			.like-order-paint-wrapper {
-				.like-white-button {
-					width: 100%;
-				}
-			}
-		}
-	}
+	
 }
 
 @media (max-width: 675px) {
-	.like-item {
-		.like-fill-item {
-			border-top: 1px solid @gray;
-		}
-	}
+
 }
 
 
