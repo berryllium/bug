@@ -701,6 +701,7 @@ function renderBasket(data) {
     } else {
         numbers.forEach((item) => {
             const card = document.createElement('div');
+            const sale = (items[item.id].sale === true) ? 'sale' : ''
             card.className = 'row basket-item';
             card.innerHTML = `
                 <div class="basket-img-wrapper" number_id="${items[item.id].id}">
@@ -723,7 +724,7 @@ function renderBasket(data) {
                     </div>
                     <p class="basket-gray-color">${items[item.id].price} <img class="basket-ruble" src="./img/basket/gray-ruble.png" alt=""></p>
                     <div class="price-wrapper">
-                    <strong class="item_total_price price-strong">${items[item.id].price * item.count} </strong>
+                    <strong class="item_total_price price-strong ${sale}">${items[item.id].price * item.count}</strong>
                     <img class="basket-bad-ruble" src="./img/basket/ruble.png" alt="">
                     
                     </div>

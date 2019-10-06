@@ -1281,6 +1281,10 @@ label {
 				color    : @black;
 			}
 
+			.sale {
+				color: red;
+			}
+
 			.name-strong {
 				width    : 19%;
 				display  : inline-block;
@@ -1659,7 +1663,7 @@ label {
 
 	&-content {
 		width           : 410px;
-		position        : fixed;
+		position        : absolute;
 		text-align      : left;
 		left            : 50%;
 		top             : 10px;
@@ -2168,3 +2172,84 @@ label {
 
 
 //END_INDEX________________________
+
+// Адаптивность
+
+@media (max-width: 500px) {
+	.container {
+		padding: 0 !important;
+	}
+	.row {
+		margin: 0!important;
+	}
+	section {
+		margin: 0!important;
+	}
+	.logo-wrapper {
+		float: right;
+	}
+	.topmenu {
+		display: none;
+	}
+	.call-wrapper {
+		margin-top: 10px;
+		text-align: center;
+	}
+	.fill-wrapper {
+		display: flex;
+		justify-content: space-around;
+	}
+
+	.white-button {
+		font-size: 14pt;
+	}
+
+	.collection .man-wrapper {
+		min-height: 0;
+		width: 100%;
+		.middle-wrapper {
+			margin: 50px 0;
+		}
+	}
+
+	.collection .woman-wrapper {
+		min-height: 0;
+		width: 100%;
+		.middle-wrapper {
+			margin: 50px 0;
+		}
+	}
+
+	.advantages .advantage-wrapper {
+		margin: 0;
+		h3 {
+			text-align: center;
+			font-size: 14pt;
+		}
+	}
+	.advantages .advantage-wrapper .advantage-header-wrapper {
+		width: 100%!important;
+	}
+	.advantages .advantage-wrapper .advantage-img-wrapper {
+		width: 100%!important;
+	}
+	.advantages .advantage-wrapper {
+		width: 100%;
+	}
+
+	.subscribe .sub-wrapper {
+		display: flex;
+		flex-direction: column;
+		padding: 10px;
+		input, button {
+			width: 100%!important;
+			margin: 5px 0;
+		}
+	}
+
+	.row-wrapper .buttons-wrapper .button-wrapper .feedback img {
+	
+			display: none;
+		
+	}
+}
