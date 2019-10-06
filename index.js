@@ -162,11 +162,38 @@ function renderItems(data) {
                         buttonImg.setAttribute('src', './img/items/black_basket.png');
                         console.log(buttonImg);
                         countBasket();
+                        countLike();
                         //  localStorage.removeItem('basket_items');
                     });
 
                     const likeButton = card.querySelector('.item-button-heart');
                     likeButton.addEventListener('click', () => {
+                        let like;
+                        if ( ( (localStorage.getItem('like_items')) == null ) || ((localStorage.getItem('like_items')) == "" ) ) {
+                            like = [];
+                            localStorage.setItem('like_items', JSON.stringify(like)); 
+                        }
+                        like = JSON.parse(localStorage.getItem('like_items'));
+
+                        let counted = false;
+                        like.forEach((i) => {
+                            if (i.id === item.id) {
+                                counted = true;
+                                i.count += 1;
+                            }
+                        });
+                        if (!counted) {
+                            like.push({'id': item.id, 'count': 1});
+                        } 
+                        localStorage.setItem('like_items', JSON.stringify(like));
+                        console.log('BASKET:'+(localStorage.getItem('like_items')));
+                        const buttonImg = likeButton.querySelector('.item-button-img');
+                        buttonImg.setAttribute('src', './img/items/black_heart.png');
+                        console.log(buttonImg);
+                        countLike();
+                        
+                        
+                        
                         // let like;
                         // if ( ( (localStorage.getItem('basket_items')) == null ) || ((localStorage.getItem('basket_items')) == "" ) ) {
                         //     basket = [];
@@ -186,9 +213,9 @@ function renderItems(data) {
                         // } 
                         // localStorage.setItem('basket_items', JSON.stringify(basket));
                         // console.log('BASKET:'+(localStorage.getItem('basket_items')));
-                        const buttonImg = likeButton.querySelector('.item-button-img');
-                        buttonImg.setAttribute('src', './img/items/black_heart.png');
-                        console.log(buttonImg);
+                        // const buttonImg = likeButton.querySelector('.item-button-img');
+                        // buttonImg.setAttribute('src', './img/items/black_heart.png');
+                        // console.log(buttonImg);
 
                         //  localStorage.removeItem('basket_items');
                     });
@@ -502,6 +529,7 @@ function renderItems(data) {
     //pages_________________________________________
 
     countBasket();
+    countLike()
     initButtons();
 
 }
@@ -514,6 +542,17 @@ function countBasket() {
     // если массив корзины содержит что-то большее, чем []
     if ([...localStorage.basket_items].length > 2) {
         count.innerHTML = JSON.parse(localStorage.basket_items).length
+        count.classList.remove('hidden')
+    } else count.classList.add('hidden');
+    // console.log([...localStorage.basket_items])
+}
+
+function countLike() {
+    
+    let count = document.querySelector('.count-like')
+    // если массив корзины содержит что-то большее, чем []
+    if ([...localStorage.like_items].length > 2) {
+        count.innerHTML = JSON.parse(localStorage.like_items).length
         count.classList.remove('hidden')
     } else count.classList.add('hidden');
     // console.log([...localStorage.basket_items])
@@ -667,22 +706,22 @@ function renderDetail(data) {
 
 //Корзина
 function renderBasket(data) {
-
     const itemsWrapper = document.querySelector('.items-wrapper');
     let numbers = ([...localStorage.basket_items].length > 2) ? JSON.parse(localStorage.getItem('basket_items')) : [];
     let items = data.items;
     console.log(numbers)
-    if ([...localStorage.basket_items].length < 2) {
+    if ([...localStorage.basket_items].length < 3) {
         const card = document.createElement('div');
         card.className = 'row basket-item';
                 //HIGHT_______________________________________________________________
         card.innerHTML = `
             <div class="col-md-12" style="  ">                
                 <div class="basket-fill-item" style="width: 100%; margin-left: 0px; border-top: none; height: 500x"> 
-                    <strong style="width: 100%; text-align: center;">Ваша корзина пуста...</strong>
+                    <strong id="basket-empty" style="width: 100%; text-align: center;">Ваша корзина пуста...</strong>
                 </div>
             </div>
         `;
+        
         itemsWrapper.appendChild(card);
     } else {
         numbers.forEach((item) => {
@@ -860,6 +899,74 @@ function renderBasket(data) {
 // end корзина
 
 
+// Нравится
+function renderLike(data) {
+    const itemsWrapper = document.querySelector('.items-wrapper');
+    let numbers = ([...localStorage.like_items].length > 2) ? JSON.parse(localStorage.getItem('like_items')) : [];
+    let items = data.items;
+    console.log(numbers)
+    if ([...localStorage.like_items].length < 2) {
+        const card = document.createElement('div');
+        card.className = 'row like-item';
+                //HIGHT_______________________________________________________________
+        card.innerHTML = `
+            <div class="col-md-12" style="  ">                
+                <div class="like-fill-item" style="width: 100%; margin-left: 0px; border-top: none; height: 500x"> 
+                    <strong id="like-empty" style="width: 100%; text-align: center;">Вы пока не отметили пригланувшиеся товары</strong>
+                </div>
+            </div>
+        `;
+        itemsWrapper.appendChild(card);
+    } else {
+        numbers.forEach((item) => {
+            const card = document.createElement('div');
+            card.className = 'col-md-6 like-item';
+            card.innerHTML = `
+                <div class="like-img-wrapper" number_id="${items[item.id].id}">
+                    <img class="item-img" src="${items[item.id].img1}" alt="">
+                </div>
+                <div class="like-fill-item">
+                    <strong class="name-strong">${items[item.id].title_declaration} "${items[item.id].title_name}"</strong>
+                    <div class="like-buttons-wrapper">
+                        <p class="p-button p_like">В корзину</p>
+                        <p class="p-button p_delete">Удалить</p>
+                    </div>
+                </div>
+            `;
+            itemsWrapper.appendChild(card);
+
+
+            //DELETE
+            const pDelete = card.querySelector('.p_delete');
+            pDelete.addEventListener('click', () => {
+                itemsWrapper.removeChild(card);
+                let like;
+                like = JSON.parse(localStorage.getItem('like_items'));
+                for(let n = 0; n < like.length; n++) {
+                    if(like[n].id === items[item.id].id) {
+                        like.splice(n, 1);
+                    }
+                }
+                localStorage.setItem('like_items', JSON.stringify(like));
+            });
+            //end_DELETE
+
+            });
+        //order_________________________________
+        $('.like_order_button').on('click', function(event) {
+            event.preventDefault();
+            localStorage.setItem('send_type', 'like_order');
+            $('.send_popup .main-form-btn').text('ОФОРМИТЬ ЗАКАЗ');
+            $('.send_popup').show('fade', 300);
+        });
+        //end_order_________________________________
+
+    }
+    countBasket();
+    countLike();
+    initButtons();
+}
+// end Нравится
 
 
 
@@ -974,6 +1081,10 @@ function actionPage(data) {
     //    filterFlag.category = 'all';
     });
     buf = document.querySelector('#header-basket');
+    buf.addEventListener('click', () => {
+    //    filterFlag.sale = true;
+    });
+    buf = document.querySelector('#header-like');
     buf.addEventListener('click', () => {
     //    filterFlag.sale = true;
     });
@@ -1554,6 +1665,7 @@ function actionPage(data) {
 
                 break
             } 
+
              default : theme = 'Без темы'
         }
         const sendData = {
@@ -1662,6 +1774,9 @@ document.querySelector('.subscribe-input').addEventListener('click', () => {
     if (localStorage.getItem('basket_items') == null) {
         localStorage.setItem('basket_items', '');
     }
+    if (localStorage.getItem('like_items') == null) {
+        localStorage.setItem('like_items', '');
+    }
     if (localStorage.getItem('count_items') == null) {
         localStorage.setItem('count_items', '9');
     }
@@ -1672,6 +1787,10 @@ document.querySelector('.subscribe-input').addEventListener('click', () => {
     }
     if ((document.location.href).substr(document.location.href.length - 11) == "detail.html") {
         renderDetail(db);
+        //filterItems(db);
+    }
+    if ((document.location.href).substr(document.location.href.length - 9) == "like.html") {
+        renderLike(db);
         //filterItems(db);
     }
     if ((document.location.href).substr(document.location.href.length - 11) == "basket.html") {
