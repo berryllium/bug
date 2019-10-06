@@ -191,33 +191,6 @@ function renderItems(data) {
                         buttonImg.setAttribute('src', './img/items/black_heart.png');
                         console.log(buttonImg);
                         countLike();
-
-
-
-                        // let like;
-                        // if ( ( (localStorage.getItem('basket_items')) == null ) || ((localStorage.getItem('basket_items')) == "" ) ) {
-                        //     basket = [];
-                        //     localStorage.setItem('basket_items', JSON.stringify(basket)); 
-                        // }
-                        // basket = JSON.parse(localStorage.getItem('basket_items'));
-
-                        // let counted = false;
-                        // basket.forEach((i) => {
-                        //     if (i.id === item.id) {
-                        //         counted = true;
-                        //         i.count += 1;
-                        //     }
-                        // });
-                        // if (!counted) {
-                        //     basket.push({'id': item.id, 'count': 1});
-                        // } 
-                        // localStorage.setItem('basket_items', JSON.stringify(basket));
-                        // console.log('BASKET:'+(localStorage.getItem('basket_items')));
-                        // const buttonImg = likeButton.querySelector('.item-button-img');
-                        // buttonImg.setAttribute('src', './img/items/black_heart.png');
-                        // console.log(buttonImg);
-
-                        //  localStorage.removeItem('basket_items');
                     });
 
 
@@ -878,9 +851,35 @@ function renderBasket(data) {
                 //__CHANGE_TOTAL_PRICE
             });
             //CHANGE_COUNT_UP
-            let cartButton = document.querySelector('.basket_order_button')
+            let cartButton = document.querySelector('.p_like')
             if ([...localStorage.basket_items].length > 2) cartButton.classList.remove('hidden')
             else cartButton.classList.add('hidden')
+
+            const likeButton = card.querySelector('.p_like');
+                    likeButton.addEventListener('click', () => {
+                        let like;
+                        if (((localStorage.getItem('like_items')) == null) || ((localStorage.getItem('like_items')) == "")) {
+                            like = [];
+                            localStorage.setItem('like_items', JSON.stringify(like));
+                        }
+                        like = JSON.parse(localStorage.getItem('like_items'));
+
+                        let counted = false;
+                        like.forEach((i) => {
+                            if (i.id === item.id) {
+                                counted = true;
+                                i.count += 1;
+                            }
+                        });
+                        if (!counted) {
+                            like.push({ 'id': item.id, 'count': 1 });
+                        }
+                        localStorage.setItem('like_items', JSON.stringify(like));
+                        console.log('BASKET:' + (localStorage.getItem('like_items')));
+                        likeButton.innerHTML = 'Отложено';
+                        console.log(this);
+                        countLike();
+                    });
         });
 
         //order_________________________________
@@ -892,7 +891,10 @@ function renderBasket(data) {
         });
         //end_order_________________________________
 
+
     }
+
+    
     countBasket();
     countLike();
     initButtons();
@@ -999,7 +1001,7 @@ function renderLike(data) {
             $('.send_popup').show('fade', 300);
         });
         //end_order_________________________________
-
+        
     }
     countBasket();
     countLike();
