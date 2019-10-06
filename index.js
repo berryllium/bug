@@ -1666,18 +1666,26 @@ function actionPage(data) {
                 break
             }
             case 'order_item': {
+                let pop_up_buy = document.querySelector('.buy_popup-form')
                 theme = 'Заказ товара Luxor'
-                good = db.items[localStorage.getItem('number_detail')].title_name + ' ('
-                good += db.items[localStorage.getItem('number_detail')].title_declaration + ')'
+                name = pop_up_buy.querySelector('[name="name"]').value
+                number = pop_up_buy.querySelector('[name="number"]').value
+                email = pop_up_buy.querySelector('[name="email"]').value
                 break
             }
             case 'order': {
                 theme = 'Заказ товара Luxor'
-                good = db.items[localStorage.getItem('number_detail')].title_name + ' ('
-                good += db.items[localStorage.getItem('number_detail')].title_declaration + ')'
+                name = pop_up_buy.querySelector('[name="name"]').value
+                number = pop_up_buy.querySelector('[name="number"]').value
+                email = pop_up_buy.querySelector('[name="email"]').value
                 break
             }
             case 'basket_order': {
+                let pop_up_basket = document.querySelector('.buy_popup-form')
+                theme = 'Заказ товара Luxor'
+                name = pop_up_basket.querySelector('[name="name"]').value
+                number = pop_up_basket.querySelector('[name="number"]').value
+                email = pop_up_basket.querySelector('[name="email"]').value
                 theme = 'Корзина Luxor'
                 good = '<br>  '
                 cart.forEach(function (el) {
@@ -1685,8 +1693,8 @@ function actionPage(data) {
                     good += db.items[el.id].title_declaration + ') '
                     good += el.count + 'шт <br>'
                 })
-                // localStorage.setItem('basket_items', '')
-
+                localStorage.setItem('basket_items', '[]')
+                setTimeout(() => document.location.href = "index.html", 2000)
                 break
             }
 
