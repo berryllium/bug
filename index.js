@@ -9,7 +9,20 @@
 //import getData from './modules/getData';
 
 //переменная, содержащая массив полученных товаров
-let db
+let db;
+
+function set_sex() {
+    console.log(event)
+if (event.target.id == 'index-man') {
+        localStorage.setItem('male', 'man');
+        localStorage.setItem('category', 'all');
+    } else if (event.target.id == 'index-woman') {
+        localStorage.setItem('male', 'woman');
+        localStorage.setItem('category', 'all');
+    }
+    document.location.href = "items.html";
+}
+
 
 
 //получение данных с сервера
@@ -1394,43 +1407,6 @@ function actionPage(data) {
             document.location.href = "items.html";
         });
 
-
-        // buf = document.querySelector('.subscribe-input');
-        // buf.addEventListener('click', () => {
-        //     const subWrapper = document.querySelector('.set_sub');
-        //     subWrapper.style.display = 'block';
-        // });
-
-        // buf = document.querySelector('.subscribe-button');
-        // buf.addEventListener('click', () => {
-        //     const subWrapper = document.querySelector('.set_sub'),
-        //           inpBtnWrapper = document.querySelector('.set_inp_btn'),
-        //           checkMan =  document.querySelector('#check_man'),
-        //           checkWoman =  document.querySelector('#check_woman'),
-        //           checkAgree =  document.querySelector('#check_agree');
-
-        //           let isValid = ($('#input_sub').val().match(/.+?\@.+/g) || []).length === 1;
-
-        //     if (isValid && checkAgree.checked && (checkMan.checked || checkWoman.checked)) {
-        //         $('.header_thx').text('СПАСИБО!');
-        //         $('.text_thx').text('Вы успешно подписаны на нашу новостную рассылку.');
-
-        //         //SUBSCRIBE________________________________________________________________________
-        //         //SUBSCRIBE________________________________________________________________________
-
-
-        //         inpBtnWrapper.style.display = 'none';
-        //         subWrapper.style.display = 'none';
-        //     } else alert('ups')
-        // });
-
-
-
-
-
-
-
-
     }
     //end_index_________________________________
 
@@ -1846,6 +1822,7 @@ if (document.querySelector('.subscribe-input') != null) {
     }
 
     actionPage(db);
+ 
     countBasket();
     countLike();
 }());
