@@ -1,5 +1,5 @@
 'use strict';
- 
+
 // import renderCards from './modules/renderCards';
 // import renderCatalog from './modules/renderCatalog';
 // import toggleCheckBox from './modules/toggleCheckBox';
@@ -16,27 +16,27 @@ let db
 function getData() {
     const itemsWrapper = document.querySelector('.items-wrapper');
     return fetch('../db/db.json')
-    .then((response) => {
-        if(response.ok) {
-            return response.json();
-        } else {
-            throw new Error ('Данные не были получены, ошибка: ' + response.status);
-        }
-    })
-    .then(data => { //jsonplaceholder.com
-        return data;
-    })
-    .catch(err => {
-        console.warn(err);
-        itemsWrapper.innerHTML = '<div style="font-size: 25px"">Упс, что-то пошло не так. :(</div>';
-    });
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Данные не были получены, ошибка: ' + response.status);
+            }
+        })
+        .then(data => { //jsonplaceholder.com
+            return data;
+        })
+        .catch(err => {
+            console.warn(err);
+            itemsWrapper.innerHTML = '<div style="font-size: 25px"">Упс, что-то пошло не так. :(</div>';
+        });
 }
 //end получение данных с сервера
 
 
 //выводим товары
 function renderItems(data) {
-    
+
     console.log(localStorage.getItem('male'));
     console.log(localStorage.getItem('category'));
     console.log(localStorage.getItem('sale'));
@@ -46,33 +46,33 @@ function renderItems(data) {
 
 
     //SORT__________________________
-    const sortMax =  document.querySelector('#items-sort-max-price'),
-          sortMin =  document.querySelector('#items-sort-min-price'),
-          lenPage = localStorage.getItem('count_items');
+    const sortMax = document.querySelector('#items-sort-max-price'),
+        sortMin = document.querySelector('#items-sort-min-price'),
+        lenPage = localStorage.getItem('count_items');
 
     if (localStorage.getItem('sort') === 'max') {
         sortMax.classList.add('sort-active');
         data.items.sort((a, b) => {
             return a.price - b.price;
-            });
-       
+        });
+
     } else if (localStorage.getItem('sort') === 'min') {
         sortMin.classList.add('sort-active');
         data.items.sort((a, b) => {
-            return  b.price - a.price;
-            });
+            return b.price - a.price;
+        });
     }
     //SORT__________________________
 
     //SALE__________________________
-    const discount =  document.querySelector('#items-discount');
+    const discount = document.querySelector('#items-discount');
     if (localStorage.getItem('sale') === 'true') {
         discount.classList.add('sort-active');
     }
     //SALE__________________________
 
     const itemsWrapper = document.querySelector('.items-wrapper');
-    
+
     let iArr = 1,
         iPage = 1,
         iFotorama = 1,
@@ -82,11 +82,11 @@ function renderItems(data) {
         if (localStorage.getItem('sale') === null) localStorage.setItem('sale', 'false');
         if (localStorage.getItem('male') === item.male || localStorage.getItem('male') === 'all') {
             if ((localStorage.getItem('category') === item.category) || (localStorage.getItem('category') === "all")) {
-                if ((( localStorage.getItem('sale') === 'true' ) && (item.sale == true)) || ( localStorage.getItem('sale') === 'false' )) {
+                if (((localStorage.getItem('sale') === 'true') && (item.sale == true)) || (localStorage.getItem('sale') === 'false')) {
                     //div
                     const card = document.createElement('div');
                     card.className = 'col-md-4 col-sm-6 col-xs-12 item_rab' +
-                     (item.sale ? ' item_sale' : "");
+                        (item.sale ? ' item_sale' : "");
                     card.setAttribute('data-number', iArr);
                     card.setAttribute('data-page', iPage);
                     card.innerHTML = `
@@ -96,7 +96,7 @@ function renderItems(data) {
                             </div>
                             <div class="item-text-wrapper">
                             <p id="item_name">${item.title_declaration} "${item.title_name}"</p>
-                            <strong id="item_price" ${item.sale ? 'style="color: red"' : "" }>${item.price}</strong>
+                            <strong id="item_price" ${item.sale ? 'style="color: red"' : ""}>${item.price}</strong>
                             <img class="item-cart-ruble" src="./img/detail/ruble.png" alt="">
                             <div class="buttons-wrapper">
                                 <button class="item-button item-button-full">Подробнее</button>
@@ -113,8 +113,8 @@ function renderItems(data) {
                         countRab = 0
                     }
                     itemsWrapper.appendChild(card);
-                    
-                    
+
+
 
                     //order_________________________________
                     const itemOrderButton = card.querySelector('.order-item-button');
@@ -122,27 +122,27 @@ function renderItems(data) {
                     itemOrderButton.addEventListener('click', (event) => {
                         event.preventDefault();
                         localStorage.setItem('send_type', 'order_item');
-                        localStorage.setItem('number_detail', item.id );
+                        localStorage.setItem('number_detail', item.id);
                         $('.send_popup .main-form-btn').text('ЗАКАЗАТЬ');
                         $('.send_popup').show('fade', 300);
                         console.log(item.id)
                     });
                     //end_order_________________________________
 
-                    
+
                     const itemFullButton = card.querySelector('.item-button-full');
 
                     itemFullButton.addEventListener('click', () => {
-                        localStorage.setItem('number_detail', item.id );
+                        localStorage.setItem('number_detail', item.id);
                         document.location.href = "detail.html";
                     });
 
                     const basketButton = card.querySelector('.item-button-basket');
                     basketButton.addEventListener('click', () => {
                         let basket;
-                        if ( ( (localStorage.getItem('basket_items')) == null ) || ((localStorage.getItem('basket_items')) == "" ) ) {
+                        if (((localStorage.getItem('basket_items')) == null) || ((localStorage.getItem('basket_items')) == "")) {
                             basket = [];
-                            localStorage.setItem('basket_items', JSON.stringify(basket)); 
+                            localStorage.setItem('basket_items', JSON.stringify(basket));
                         }
                         basket = JSON.parse(localStorage.getItem('basket_items'));
 
@@ -154,10 +154,10 @@ function renderItems(data) {
                             }
                         });
                         if (!counted) {
-                            basket.push({'id': item.id, 'count': 1});
-                        } 
+                            basket.push({ 'id': item.id, 'count': 1 });
+                        }
                         localStorage.setItem('basket_items', JSON.stringify(basket));
-                        console.log('BASKET:'+(localStorage.getItem('basket_items')));
+                        console.log('BASKET:' + (localStorage.getItem('basket_items')));
                         const buttonImg = basketButton.querySelector('.item-button-img');
                         buttonImg.setAttribute('src', './img/items/black_basket.png');
                         console.log(buttonImg);
@@ -169,9 +169,9 @@ function renderItems(data) {
                     const likeButton = card.querySelector('.item-button-heart');
                     likeButton.addEventListener('click', () => {
                         let like;
-                        if ( ( (localStorage.getItem('like_items')) == null ) || ((localStorage.getItem('like_items')) == "" ) ) {
+                        if (((localStorage.getItem('like_items')) == null) || ((localStorage.getItem('like_items')) == "")) {
                             like = [];
-                            localStorage.setItem('like_items', JSON.stringify(like)); 
+                            localStorage.setItem('like_items', JSON.stringify(like));
                         }
                         like = JSON.parse(localStorage.getItem('like_items'));
 
@@ -183,17 +183,17 @@ function renderItems(data) {
                             }
                         });
                         if (!counted) {
-                            like.push({'id': item.id, 'count': 1});
-                        } 
+                            like.push({ 'id': item.id, 'count': 1 });
+                        }
                         localStorage.setItem('like_items', JSON.stringify(like));
-                        console.log('BASKET:'+(localStorage.getItem('like_items')));
+                        console.log('BASKET:' + (localStorage.getItem('like_items')));
                         const buttonImg = likeButton.querySelector('.item-button-img');
                         buttonImg.setAttribute('src', './img/items/black_heart.png');
                         console.log(buttonImg);
                         countLike();
-                        
-                        
-                        
+
+
+
                         // let like;
                         // if ( ( (localStorage.getItem('basket_items')) == null ) || ((localStorage.getItem('basket_items')) == "" ) ) {
                         //     basket = [];
@@ -224,17 +224,17 @@ function renderItems(data) {
 
                     //Count++
                     iFotorama++;
-                    if(iArr === lenPage) {
+                    if (iArr === lenPage) {
                         iArr = 1;
                         iPage++;
                     } else {
                         iArr++;
                     }
                     //card.style.display = 'none';
-                } 
+                }
             }
         }
-        
+
         // //order__item_______________________________
         // $('.order-item-button').on('click', function(event) {
         //     console.log(item['id']);
@@ -254,58 +254,58 @@ function renderItems(data) {
     const items = document.querySelectorAll('.item_rab');
     const buttonsWrapper = document.querySelector('.pages-buttons-wrapper');
 
-   if (items.length == localStorage.getItem('count_items')*(iPage-1)) iPage--
+    if (items.length == localStorage.getItem('count_items') * (iPage - 1)) iPage--
 
 
     const showButton = document.querySelector('.show-number-button');
     const textShowButton = showButton.querySelector('.set_count_items');
-    switch(localStorage.getItem('count_items')) {
+    switch (localStorage.getItem('count_items')) {
         case '9':
             textShowButton.textContent = 'Show 12';
-        break;
-        
+            break;
+
         case '12':
             textShowButton.textContent = 'Show 24';
-        break;
-            
+            break;
+
         case '24':
             textShowButton.textContent = 'Show 9';
-        break;
+            break;
     }
     showButton.addEventListener('click', () => {
-        
-        switch(localStorage.getItem('count_items')) {
+
+        switch (localStorage.getItem('count_items')) {
             case '9':
                 localStorage.setItem('count_items', '12');
                 textShowButton.textContent = 'Show 12';
-            break;
-            
+                break;
+
             case '12':
                 localStorage.setItem('count_items', '24');
                 textShowButton.textContent = 'Show 24';
-            break;
-                
+                break;
+
             case '24':
                 localStorage.setItem('count_items', '9');
                 textShowButton.textContent = 'Show 9';
-            break;
-            }
+                break;
+        }
         document.location.href = "items.html";
     });
 
 
     //changePage____________________________________
-    
-    function changePage(numberPage) {   
-        items.forEach( item => {
+
+    function changePage(numberPage) {
+        items.forEach(item => {
             console.log(numberPage);
-            if(item.getAttribute('data-page') == numberPage) {
+            if (item.getAttribute('data-page') == numberPage) {
                 item.style.display = 'block';
             } else {
                 item.style.display = 'none';
-            } 
+            }
         });
-        
+
         const buttons = document.querySelectorAll('.current_buttons');
         buttons.forEach(el => {
             let page = 'page' + numberPage
@@ -320,36 +320,36 @@ function renderItems(data) {
         console.log("/______________________");
         buttons.forEach((button) => {
             button.style.display = 'none';
-           // button.setAttribute('disabled', 'false');
+            // button.setAttribute('disabled', 'false');
         });
-        for(let i = 1; i <= iPage; i++) {
-            buttons[i-1].textContent = i;
+        for (let i = 1; i <= iPage; i++) {
+            buttons[i - 1].textContent = i;
         }
         buttons[0].style.display = 'block';
         console.log(iPage);
-        buttons[iPage-1].style.display = 'block';
+        buttons[iPage - 1].style.display = 'block';
         console.log(iPage);
-        if((numberPage !== iPage) && (numberPage !== 1) ) {
+        if ((numberPage !== iPage) && (numberPage !== 1)) {
             buttons[numberPage - 1].style.display = 'block';
         }
-        if(numberPage + 1 < iPage) {
+        if (numberPage + 1 < iPage) {
             buttons[numberPage].style.display = 'block';
             console.log(numberPage + 2);
             console.log(iPage);
             console.log(!(numberPage + 2 === iPage));
-            if(!(numberPage + 2 === iPage)) {
-                const p = buttons[numberPage+1].firstChild;
+            if (!(numberPage + 2 === iPage)) {
+                const p = buttons[numberPage + 1].firstChild;
                 p.textContent = '...';
-              //  buttons[numberPage+1].setAttribute('disabled', 'true');
-                buttons[numberPage+1].style.display = 'block';
+                //  buttons[numberPage+1].setAttribute('disabled', 'true');
+                buttons[numberPage + 1].style.display = 'block';
             }
         }
-        if(numberPage - 1 > 1) {
+        if (numberPage - 1 > 1) {
             buttons[numberPage - 2].style.display = 'block';
-            if(numberPage - 2 !== 1) {
-                const p = buttons[numberPage-3].firstChild;
+            if (numberPage - 2 !== 1) {
+                const p = buttons[numberPage - 3].firstChild;
                 p.textContent = '...';
-             //   buttons[numberPage-3].setAttribute('disabled', 'true');
+                //   buttons[numberPage-3].setAttribute('disabled', 'true');
                 buttons[numberPage - 3].style.display = 'block';
             }
         }
@@ -368,7 +368,7 @@ function renderItems(data) {
         //         console.log(data.items[0]);
         //         console.log(data.items[0]['img'+2]);
         //         for(let l = 1; l <= data.items[0].images_quantity; l++) {
-                    
+
         //             fotorama.push({ img: (data.items[0]['img'+l]) });
 
         //             console.log('PUSH___');
@@ -392,7 +392,7 @@ function renderItems(data) {
         //     }
         //     lItem++;
         // });
-     
+
 
 
 
@@ -400,8 +400,8 @@ function renderItems(data) {
     }
     //changePage____________________________________
 
-    
-//currentButtons__________________________________________
+
+    //currentButtons__________________________________________
 
     let prevButton = document.createElement('div');
     prevButton.className = 'pages-button-wrapper';
@@ -413,11 +413,11 @@ function renderItems(data) {
     prevButton.innerHTML = `
         <button class="pages-white-button left-page"><p><</p></button>
         `;
-    
+
     buttonsWrapper.append(prevButton);
     console.log(prevButton);
 
-    for(let i = 1; i <= iPage; i++) {
+    for (let i = 1; i <= iPage; i++) {
         let iButton = document.createElement('div');
         iButton.className = 'pages-button-wrapper';
         iButton.innerHTML = `
@@ -432,28 +432,28 @@ function renderItems(data) {
     nextButton.innerHTML = `
         <button class="pages-white-button right-page"><p>></p></button>
         `;
-        console.log(nextButton);
+    console.log(nextButton);
     buttonsWrapper.append(nextButton);
     console.log(buttonsWrapper);
 
     numberPage = 1;
     changePage(1);
-    $('.left-page').on('click', function(event) {
+    $('.left-page').on('click', function (event) {
         event.preventDefault();
-        if(numberPage > 1) {
+        if (numberPage > 1) {
             numberPage--;
             changePage(numberPage);
         }
     });
-    $('.right-page').on('click', function(event) {
+    $('.right-page').on('click', function (event) {
         event.preventDefault();
         console.log(iPage);
-        if(numberPage < iPage) {
+        if (numberPage < iPage) {
             numberPage++;
             changePage(numberPage);
         }
     });
-    for(let i = 1; i <= iPage; i++) {
+    for (let i = 1; i <= iPage; i++) {
         const currentButton = document.querySelector('.' + 'page' + i);
         currentButton.addEventListener('click', (e) => {
             changePage(i);
@@ -469,22 +469,22 @@ function renderItems(data) {
 
     //nav and category_nav_________________________________________
     const navMale = document.querySelector('.get_male'),
-          navCategory = document.querySelector('.get_category'),
-          navWrapper = document.querySelector('.nav-items-li-wrapper');
+        navCategory = document.querySelector('.get_category'),
+        navWrapper = document.querySelector('.nav-items-li-wrapper');
     if (localStorage.getItem('category') === 'all') {
         navCategory.textContent = 'Всё';
     } else {
         navCategory.textContent = localStorage.getItem('category');
     }
-    if(localStorage.getItem('male') === 'man') {
+    if (localStorage.getItem('male') === 'man') {
         navMale.textContent = 'Мужчины';
-    } else if(localStorage.getItem('male') === 'woman'){
-                navMale.textContent = 'Женщины';
-            } else {
-                navMale.textContent = 'Акции';
-            }
+    } else if (localStorage.getItem('male') === 'woman') {
+        navMale.textContent = 'Женщины';
+    } else {
+        navMale.textContent = 'Акции';
+    }
 
-    if(localStorage.getItem('male') === 'man') {
+    if (localStorage.getItem('male') === 'man') {
         const nav = document.createElement('div');
         nav.className = 'nav-wrapper';
         nav.innerHTML = `
@@ -514,7 +514,7 @@ function renderItems(data) {
     }
     //nav and category_nav_________________________________________
 
-    
+
 
 
 
@@ -537,7 +537,7 @@ function renderItems(data) {
 
 // счетчик корзины
 function countBasket() {
-    
+
     let count = document.querySelector('.count-basket')
     // если массив корзины содержит что-то большее, чем []
     if ([...localStorage.basket_items].length > 2) {
@@ -548,7 +548,7 @@ function countBasket() {
 }
 
 function countLike() {
-    
+
     let count = document.querySelector('.count-like')
     // если массив корзины содержит что-то большее, чем []
     if ([...localStorage.like_items].length > 2) {
@@ -564,12 +564,12 @@ function countLike() {
 function renderDetail(data) {
 
     const detailedTextWrapper = document.querySelector('.detailed-text-wrapper'),
-          i = parseFloat(localStorage.getItem('number_detail'));
-          let items = data.items;
-            //div
-           const card = document.createElement('div');
-            card.className = 'detailed_item';
-            card.innerHTML = `
+        i = parseFloat(localStorage.getItem('number_detail'));
+    let items = data.items;
+    //div
+    const card = document.createElement('div');
+    card.className = 'detailed_item';
+    card.innerHTML = `
                   <div class="detailed-text-header-wrapper">
                       <h3>${items[i].title_declaration} "${items[i].title_name}"</h3>
                       <img class="after-line"src="./img/detail/line.png" alt="">
@@ -603,79 +603,79 @@ function renderDetail(data) {
                   <button class="green-button order_button">БЫСТРЫЙ ЗАКАЗ</button> <br>
                   <button class="add-basket-button">ДОБАВИТЬ В КОРЗИНУ</button> <br>
             `;
-        detailedTextWrapper.appendChild(card);
+    detailedTextWrapper.appendChild(card);
 
 
 
-        //FOTORAMA_____________________________________________________
-        let fotorama = $('#delail_fotorama').data('fotorama');
-        for(let l = 1; l <= items[i].images_quantity; l++) {
-            fotorama.push({img: (items[i]['img'+l]), thumb: (items[i]['img'+l])});
-        }
-        const detailedRowWrapper = document.querySelector('.detailed-wrapper');
-        console.log($('#detailed_row_width'));
-        console.log(detailedRowWrapper.clientWidth);
-        $('.fotorama').fotorama({
-            width: 0.55 * detailedRowWrapper.clientWidth,
-            height: 600,
-         //   height: $('.detailed-wrapper').height, 
-            ratio: 16/9,
-            allowfullscreen: true,
-            nav: 'thumbs'
-           });
-
-        
-
-        //    $('window').on('onchange', function(event) {
-        //     const detailedRowWrapper = document.querySelector('.container');
-        //     event.preventDefault();
-        //     console.log('||||ONCHANGE__________________________________');
-        //     if (detailedRowWrapper.clientWidth > 1200) {
-        //         $('.fotorama').fotorama({
-        //             width: 0.55 * detailedRowWrapper.clientWidth,
-        //            });
-        //     } else {
-        //         $('.fotorama').fotorama({
-        //             width: detailedRowWrapper.clientWidth,
-        //            });
-        //     }
-        // });
-          
-        console.log(fotorama);
-        //$( ".fotorama" ).load(window.location.href + " .fotorama" );
-        //FOTORAMA_____________________________________________________
+    //FOTORAMA_____________________________________________________
+    let fotorama = $('#delail_fotorama').data('fotorama');
+    for (let l = 1; l <= items[i].images_quantity; l++) {
+        fotorama.push({ img: (items[i]['img' + l]), thumb: (items[i]['img' + l]) });
+    }
+    const detailedRowWrapper = document.querySelector('.detailed-wrapper');
+    console.log($('#detailed_row_width'));
+    console.log(detailedRowWrapper.clientWidth);
+    $('.fotorama').fotorama({
+        width: 0.55 * detailedRowWrapper.clientWidth,
+        height: 600,
+        //   height: $('.detailed-wrapper').height, 
+        ratio: 16 / 9,
+        allowfullscreen: true,
+        nav: 'thumbs'
+    });
 
 
 
-        const basketButton = card.querySelector('.add-basket-button');
+    //    $('window').on('onchange', function(event) {
+    //     const detailedRowWrapper = document.querySelector('.container');
+    //     event.preventDefault();
+    //     console.log('||||ONCHANGE__________________________________');
+    //     if (detailedRowWrapper.clientWidth > 1200) {
+    //         $('.fotorama').fotorama({
+    //             width: 0.55 * detailedRowWrapper.clientWidth,
+    //            });
+    //     } else {
+    //         $('.fotorama').fotorama({
+    //             width: detailedRowWrapper.clientWidth,
+    //            });
+    //     }
+    // });
 
-        basketButton.addEventListener('click', () => {
-            let basket;
-            if ( ( (localStorage.getItem('basket_items')) == null ) || ((localStorage.getItem('basket_items')) == "" ) ) {
-                basket = [];
-                localStorage.setItem('basket_items', JSON.stringify(basket)); 
-            }
-            basket = JSON.parse(localStorage.getItem('basket_items'));
+    console.log(fotorama);
+    //$( ".fotorama" ).load(window.location.href + " .fotorama" );
+    //FOTORAMA_____________________________________________________
 
-            let counted = false;
-            basket.forEach((iBasket) => {
-                if (iBasket.id === items[i].id) {
-                    counted = true;
-                    iBasket.count += 1;
-                }
-            });
-            if (!counted) {
-                basket.push({'id': items[i].id, 'count': 1});
-            } 
+
+
+    const basketButton = card.querySelector('.add-basket-button');
+
+    basketButton.addEventListener('click', () => {
+        let basket;
+        if (((localStorage.getItem('basket_items')) == null) || ((localStorage.getItem('basket_items')) == "")) {
+            basket = [];
             localStorage.setItem('basket_items', JSON.stringify(basket));
-            console.log('BASKET:'+(localStorage.getItem('basket_items')));
-            countBasket();
-            //localStorage.removeItem('basket_items');
-        });
+        }
+        basket = JSON.parse(localStorage.getItem('basket_items'));
 
-        
+        let counted = false;
+        basket.forEach((iBasket) => {
+            if (iBasket.id === items[i].id) {
+                counted = true;
+                iBasket.count += 1;
+            }
+        });
+        if (!counted) {
+            basket.push({ 'id': items[i].id, 'count': 1 });
+        }
+        localStorage.setItem('basket_items', JSON.stringify(basket));
+        console.log('BASKET:' + (localStorage.getItem('basket_items')));
+        countBasket();
+        //localStorage.removeItem('basket_items');
+    });
+
+
     //order_________________________________
-    $('.order_button').on('click', function(event) {
+    $('.order_button').on('click', function (event) {
         event.preventDefault();
         localStorage.setItem('send_type', 'order');
         $('.send_popup .main-form-btn').text('ЗАКАЗАТЬ');
@@ -713,7 +713,7 @@ function renderBasket(data) {
     if ([...localStorage.basket_items].length < 3) {
         const card = document.createElement('div');
         card.className = 'row basket-item';
-                //HIGHT_______________________________________________________________
+        //HIGHT_______________________________________________________________
         card.innerHTML = `
             <div class="col-md-12" style="  ">                
                 <div class="basket-fill-item" style="width: 100%; margin-left: 0px; border-top: none; height: 500x"> 
@@ -721,7 +721,7 @@ function renderBasket(data) {
                 </div>
             </div>
         `;
-        
+
         itemsWrapper.appendChild(card);
     } else {
         numbers.forEach((item) => {
@@ -748,7 +748,7 @@ function renderBasket(data) {
                     </div>
                     <p class="basket-gray-color">${items[item.id].price} <img class="basket-ruble" src="./img/basket/gray-ruble.png" alt=""></p>
                     <div class="price-wrapper">
-                    <strong class="item_total_price price-strong">${items[item.id].price*item.count} </strong>
+                    <strong class="item_total_price price-strong">${items[item.id].price * item.count} </strong>
                     <img class="basket-bad-ruble" src="./img/basket/ruble.png" alt="">
                     
                     </div>
@@ -763,23 +763,23 @@ function renderBasket(data) {
 
             //CHANGE_TOTAL_PRICE
             const basketSumPrice = document.querySelector('.basket_sum_price'),
-                  basketBenefitPrice = document.querySelector('.basket_benefit_price'),
-                  basketTotalPrice = document.querySelector('.basket_total_price');
+                basketBenefitPrice = document.querySelector('.basket_benefit_price'),
+                basketTotalPrice = document.querySelector('.basket_total_price');
             basketSumPrice.textContent = '0';
             basketBenefitPrice.textContent = '0';
             basketTotalPrice.textContent = '0';
             let basket = JSON.parse(localStorage.getItem('basket_items'));
-            for(let n = 0; n < basket.length; n++) {
-                basketSumPrice.textContent = parseFloat(basketSumPrice.textContent) + 
-                parseFloat(items[basket[n].id].price * basket[n].count);
+            for (let n = 0; n < basket.length; n++) {
+                basketSumPrice.textContent = parseFloat(basketSumPrice.textContent) +
+                    parseFloat(items[basket[n].id].price * basket[n].count);
                 //benefitPrice.textContent += '0';
-                basketTotalPrice.textContent = parseFloat(basketTotalPrice.textContent) + 
-                parseFloat(items[basket[n].id].price * basket[n].count);
+                basketTotalPrice.textContent = parseFloat(basketTotalPrice.textContent) +
+                    parseFloat(items[basket[n].id].price * basket[n].count);
             }
             //CHANGE_TOTAL_PRICE
 
-            
-            
+
+
 
 
 
@@ -791,8 +791,8 @@ function renderBasket(data) {
                 itemsWrapper.removeChild(card);
                 let basket;
                 basket = JSON.parse(localStorage.getItem('basket_items'));
-                for(let n = 0; n < basket.length; n++) {
-                    if(basket[n].id === items[item.id].id) {
+                for (let n = 0; n < basket.length; n++) {
+                    if (basket[n].id === items[item.id].id) {
                         basket.splice(n, 1);
                     }
                 }
@@ -802,12 +802,12 @@ function renderBasket(data) {
                 basketSumPrice.textContent = '0';
                 basketBenefitPrice.textContent = '0';
                 basketTotalPrice.textContent = '0';
-                for(let n = 0; n < basket.length; n++) {
-                    basketSumPrice.textContent = parseFloat(basketSumPrice.textContent) + 
-                    parseFloat(items[basket[n].id].price * basket[n].count);
+                for (let n = 0; n < basket.length; n++) {
+                    basketSumPrice.textContent = parseFloat(basketSumPrice.textContent) +
+                        parseFloat(items[basket[n].id].price * basket[n].count);
                     //benefitPrice.textContent += '0';
-                    basketTotalPrice.textContent = parseFloat(basketTotalPrice.textContent) + 
-                    parseFloat(items[basket[n].id].price * basket[n].count);
+                    basketTotalPrice.textContent = parseFloat(basketTotalPrice.textContent) +
+                        parseFloat(items[basket[n].id].price * basket[n].count);
                 }
                 countBasket()
                 //CHANGE_TOTAL_PRICE
@@ -820,10 +820,10 @@ function renderBasket(data) {
             basketArrow.addEventListener('click', () => {
                 let basket;
                 const numberButton = card.querySelector('.number-items'),
-                      totalPrice = card.querySelector('.item_total_price');
+                    totalPrice = card.querySelector('.item_total_price');
                 basket = JSON.parse(localStorage.getItem('basket_items'));
-                for(let n = 0; n < basket.length; n++) {
-                    if(basket[n].id === items[item.id].id) {
+                for (let n = 0; n < basket.length; n++) {
+                    if (basket[n].id === items[item.id].id) {
                         if (basket[n].count > 1) {
                             basket[n].count--;
                             numberButton.textContent = basket[n].count;
@@ -837,12 +837,12 @@ function renderBasket(data) {
                 basketSumPrice.textContent = '0';
                 basketBenefitPrice.textContent = '0';
                 basketTotalPrice.textContent = '0';
-                for(let n = 0; n < basket.length; n++) {
-                    basketSumPrice.textContent = parseFloat(basketSumPrice.textContent) + 
-                    parseFloat(items[basket[n].id].price * basket[n].count);
+                for (let n = 0; n < basket.length; n++) {
+                    basketSumPrice.textContent = parseFloat(basketSumPrice.textContent) +
+                        parseFloat(items[basket[n].id].price * basket[n].count);
                     //benefitPrice.textContent += '0';
-                    basketTotalPrice.textContent = parseFloat(basketTotalPrice.textContent) + 
-                    parseFloat(items[basket[n].id].price * basket[n].count);
+                    basketTotalPrice.textContent = parseFloat(basketTotalPrice.textContent) +
+                        parseFloat(items[basket[n].id].price * basket[n].count);
                 }
                 //CHANGE_TOTAL_PRICE
             });
@@ -853,10 +853,10 @@ function renderBasket(data) {
             basketArrow.addEventListener('click', () => {
                 let basket;
                 const numberButton = card.querySelector('.number-items'),
-                      totalPrice = card.querySelector('.item_total_price');
+                    totalPrice = card.querySelector('.item_total_price');
                 basket = JSON.parse(localStorage.getItem('basket_items'));
-                for(let n = 0; n < basket.length; n++) {
-                    if(basket[n].id === items[item.id].id) {
+                for (let n = 0; n < basket.length; n++) {
+                    if (basket[n].id === items[item.id].id) {
                         basket[n].count++;
                         numberButton.textContent = basket[n].count;
                         totalPrice.textContent = basket[n].count * items[item.id].price;
@@ -868,12 +868,12 @@ function renderBasket(data) {
                 basketSumPrice.textContent = '0';
                 basketBenefitPrice.textContent = '0';
                 basketTotalPrice.textContent = '0';
-                for(let n = 0; n < basket.length; n++) {
-                    basketSumPrice.textContent = parseFloat(basketSumPrice.textContent) + 
-                    parseFloat(items[basket[n].id].price * basket[n].count);
+                for (let n = 0; n < basket.length; n++) {
+                    basketSumPrice.textContent = parseFloat(basketSumPrice.textContent) +
+                        parseFloat(items[basket[n].id].price * basket[n].count);
                     //benefitPrice.textContent += '0';
-                    basketTotalPrice.textContent = parseFloat(basketTotalPrice.textContent) + 
-                    parseFloat(items[basket[n].id].price * basket[n].count);
+                    basketTotalPrice.textContent = parseFloat(basketTotalPrice.textContent) +
+                        parseFloat(items[basket[n].id].price * basket[n].count);
                 }
                 //__CHANGE_TOTAL_PRICE
             });
@@ -884,7 +884,7 @@ function renderBasket(data) {
         });
 
         //order_________________________________
-        $('.basket_order_button').on('click', function(event) {
+        $('.basket_order_button').on('click', function (event) {
             event.preventDefault();
             localStorage.setItem('send_type', 'basket_order');
             $('.send_popup .main-form-btn').text('ОФОРМИТЬ ЗАКАЗ');
@@ -894,6 +894,7 @@ function renderBasket(data) {
 
     }
     countBasket();
+    countLike();
     initButtons();
 }
 // end корзина
@@ -905,10 +906,10 @@ function renderLike(data) {
     let numbers = ([...localStorage.like_items].length > 2) ? JSON.parse(localStorage.getItem('like_items')) : [];
     let items = data.items;
     console.log(numbers)
-    if ([...localStorage.like_items].length < 2) {
+    if ([...localStorage.like_items].length <= 2) {
         const card = document.createElement('div');
         card.className = 'row like-item';
-                //HIGHT_______________________________________________________________
+        //HIGHT_______________________________________________________________
         card.innerHTML = `
             <div class="col-md-12" style="  ">                
                 <div class="like-fill-item" style="width: 100%; margin-left: 0px; border-top: none; height: 500x"> 
@@ -927,13 +928,49 @@ function renderLike(data) {
                 </div>
                 <div class="like-fill-item">
                     <strong class="name-strong">${items[item.id].title_declaration} "${items[item.id].title_name}"</strong>
-                    <div class="like-buttons-wrapper">
-                        <p class="p-button p_like">В корзину</p>
-                        <p class="p-button p_delete">Удалить</p>
-                    </div>
+                    <p class="item-button like-button-full">Подробнее</p>
+                    <p class="item-button like-button-basket"><img class="item-button-img" src="./img/items/basket.png" alt=""> В корзину</p>
+                    <p class="p-button p_delete">Удалить</p>
+                
                 </div>
             `;
             itemsWrapper.appendChild(card);
+
+            const itemFullButton = card.querySelector('.like-button-full');
+
+                    itemFullButton.addEventListener('click', () => {
+                        localStorage.setItem('number_detail', item.id);
+                        document.location.href = "detail.html";
+                    });
+
+                    const basketButton = card.querySelector('.like-button-basket');
+                    basketButton.addEventListener('click', () => {
+                        let basket;
+                        if (((localStorage.getItem('basket_items')) == null) || ((localStorage.getItem('basket_items')) == "")) {
+                            basket = [];
+                            localStorage.setItem('basket_items', JSON.stringify(basket));
+                        }
+                        basket = JSON.parse(localStorage.getItem('basket_items'));
+
+                        let counted = false;
+                        basket.forEach((i) => {
+                            if (i.id === item.id) {
+                                counted = true;
+                                i.count += 1;
+                            }
+                        });
+                        if (!counted) {
+                            basket.push({ 'id': item.id, 'count': 1 });
+                        }
+                        localStorage.setItem('basket_items', JSON.stringify(basket));
+                        console.log('BASKET:' + (localStorage.getItem('basket_items')));
+                        const buttonImg = basketButton.querySelector('.item-button-img');
+                        buttonImg.setAttribute('src', './img/items/black_basket.png');
+                        console.log(buttonImg);
+                        countBasket();
+                        countLike();
+                        //  localStorage.removeItem('basket_items');
+                    });
 
 
             //DELETE
@@ -942,18 +979,20 @@ function renderLike(data) {
                 itemsWrapper.removeChild(card);
                 let like;
                 like = JSON.parse(localStorage.getItem('like_items'));
-                for(let n = 0; n < like.length; n++) {
-                    if(like[n].id === items[item.id].id) {
+                for (let n = 0; n < like.length; n++) {
+                    if (like[n].id === items[item.id].id) {
                         like.splice(n, 1);
                     }
                 }
                 localStorage.setItem('like_items', JSON.stringify(like));
+                countLike();
             });
+            
             //end_DELETE
 
-            });
+        });
         //order_________________________________
-        $('.like_order_button').on('click', function(event) {
+        $('.like_order_button').on('click', function (event) {
             event.preventDefault();
             localStorage.setItem('send_type', 'like_order');
             $('.send_popup .main-form-btn').text('ОФОРМИТЬ ЗАКАЗ');
@@ -976,43 +1015,43 @@ function renderLike(data) {
 
 
 //добавление событий на страницах
-function initButtons () {
-//buttons__________
-if ($('#call_us_btn') != null) {
-    $('#call_us_btn').on('click', function(event) {
-        event.preventDefault();
-        localStorage.setItem('send_type', 'call_us');
-        $('.send_popup').show('fade', 300);
-      });
+function initButtons() {
+    //buttons__________
+    if ($('#call_us_btn') != null) {
+        $('#call_us_btn').on('click', function (event) {
+            event.preventDefault();
+            localStorage.setItem('send_type', 'call_us');
+            $('.send_popup').show('fade', 300);
+        });
+    }
+
+    if ($('#feedback_btn') != null) {
+        $('#feedback_btn').on('click', function (event) {
+            event.preventDefault();
+            localStorage.setItem('send_type', 'feedback');
+            $('.feedback_popup').show('fade', 300);
+        });
+    }
+
+    if ($('.send_popup-close') != null) {
+        $('.send_popup-close').on('click', function (event) {
+            event.preventDefault();
+            $('.send_popup').hide('fade', 300);
+        });
+    }
+
+
+    if ($('.feedback_popup-close') != null) {
+        $('.feedback_popup-close').on('click', function (event) {
+            event.preventDefault();
+            $('.feedback_popup').hide('fade', 300);
+        });
+    }
+
+
+    //buttons__________
 }
 
-if ($('#feedback_btn') != null) {
-    $('#feedback_btn').on('click', function(event) {
-        event.preventDefault();
-        localStorage.setItem('send_type', 'feedback');
-        $('.feedback_popup').show('fade', 300);
-      });
-}
-
-if ($('.send_popup-close') != null) {
-    $('.send_popup-close').on('click', function(event) {
-        event.preventDefault();
-        $('.send_popup').hide('fade', 300);
-      });
-}
-  
-
-  if ($('.feedback_popup-close') != null) {
-    $('.feedback_popup-close').on('click', function(event) {
-        event.preventDefault();
-        $('.feedback_popup').hide('fade', 300);
-      });
-  }
-
-  
-//buttons__________
-}
-    
 
 // подписка
 let buf = document.querySelector('.subscribe-button');
@@ -1020,13 +1059,13 @@ if (buf != null) {
     console.log(buf)
     buf.addEventListener('click', () => {
         const subWrapper = document.querySelector('.set_sub'),
-              inpBtnWrapper = document.querySelector('.set_inp_btn'),
-              checkMan =  document.querySelector('#check_man'),
-              checkWoman =  document.querySelector('#check_woman'),
-              checkAgree =  document.querySelector('#check_agree'),
-              email = document.querySelector('.subscribe-input').value;
-              
-              let isValid = ($('#input_sub').val().match(/.+?\@.+/g) || []).length === 1;
+            inpBtnWrapper = document.querySelector('.set_inp_btn'),
+            checkMan = document.querySelector('#check_man'),
+            checkWoman = document.querySelector('#check_woman'),
+            checkAgree = document.querySelector('#check_agree'),
+            email = document.querySelector('.subscribe-input').value;
+
+        let isValid = ($('#input_sub').val().match(/.+?\@.+/g) || []).length === 1;
 
         if (isValid && checkAgree.checked && (checkMan.checked || checkWoman.checked)) {
             $('.header_thx').text('СПАСИБО!');
@@ -1042,12 +1081,12 @@ if (buf != null) {
                 type: 'POST',
                 url: 'mail/mail.php',
                 data: {
-                    email: email, 
+                    email: email,
                     send_type: localStorage.getItem('send_type'),
                     theme: 'Подписка Luxor',
                     sex: sex
                 },
-                success: function(result) {
+                success: function (result) {
                     console.log(result);
                 }
             });
@@ -1078,19 +1117,19 @@ function actionPage(data) {
         localStorage.setItem('sale', 'true');
         localStorage.setItem('male', 'all');
         localStorage.setItem('category', 'all');
-    //    filterFlag.category = 'all';
+        //    filterFlag.category = 'all';
     });
     buf = document.querySelector('#header-basket');
     buf.addEventListener('click', () => {
-    //    filterFlag.sale = true;
+        //    filterFlag.sale = true;
     });
     buf = document.querySelector('#header-like');
     buf.addEventListener('click', () => {
-    //    filterFlag.sale = true;
+        //    filterFlag.sale = true;
     });
     buf = document.querySelector('#header-like');
     buf.addEventListener('click', () => {
-    //    filterFlag.sale = true;
+        //    filterFlag.sale = true;
     });
 
 
@@ -1100,79 +1139,79 @@ function actionPage(data) {
         localStorage.setItem('sale', 'true');
         localStorage.setItem('male', 'all');
         localStorage.setItem('category', 'all');
-    //    filterFlag.category = 'all';
+        //    filterFlag.category = 'all';
     });
 
-    $(document).ready(function() {
-        $('#burger-btn').on('click', function(event) {
-          event.preventDefault();
+    $(document).ready(function () {
+        $('#burger-btn').on('click', function (event) {
+            event.preventDefault();
 
-          const menuA = document.querySelectorAll('.clear_p');
-          menuA.forEach((p) => {
-            p.textContent = '0';
-          });
-          data.items.forEach((item) => {
-            if (item.male === 'man') {
-                switch(item.category) {
-                    case 'Сумки':
-                        $('#menu_man_sum').text( (parseFloat($('#menu_man_sum').text()) + 1) );
-                    break;
-                  
-                    case 'Саквояжи':
-                        $('#menu_man_sac').text( (parseFloat($('#menu_man_sac').text()) + 1) );
-                    break;
-                      
-                    case 'Дорожные сумки':
-                        $('#menu_man_dor_sum').text( (parseFloat($('#menu_man_dor_sum').text()) + 1) );
-                    break;
-                
-                    case 'Портфели':
-                        $('#menu_man_por').text( (parseFloat($('#menu_man_por').text()) + 1) );
-                    break;
-                    
-                    case 'Рюкзаки':
-                        $('#menu_man_ruc').text( (parseFloat($('#menu_man_ruc').text()) + 1) );
-                    break;
-                    
-                    case 'Клатчи':
-                        $('#menu_man_cla').text( (parseFloat($('#menu_man_cla').text()) + 1) );
-                    break;
+            const menuA = document.querySelectorAll('.clear_p');
+            menuA.forEach((p) => {
+                p.textContent = '0';
+            });
+            data.items.forEach((item) => {
+                if (item.male === 'man') {
+                    switch (item.category) {
+                        case 'Сумки':
+                            $('#menu_man_sum').text((parseFloat($('#menu_man_sum').text()) + 1));
+                            break;
 
-                    case 'Портмоне':
-                        $('#menu_man_port').text( (parseFloat($('#menu_man_port').text()) + 1) );
-                    break;
-                  }
-            } else if (item.male === 'woman') {
-                switch(item.category) {
-                    case 'Сумки':
-                      $('#menu_woman_sum').text( (parseFloat($('#menu_woman_sum').text()) + 1) );
-                    break;
-                  
-                    case 'Саквояжи':
-                        $('#menu_woman_sac').text( (parseFloat($('#menu_woman_sac').text()) + 1) );
-                    break;
-                    
-                    case 'Рюкзаки':
-                        $('#menu_woman_ruc').text( (parseFloat($('#menu_woman_ruc').text()) + 1) );
-                    break;
-                    
-                    case 'Клатчи':
-                        $('#menu_woman_cla').text( (parseFloat($('#menu_woman_cla').text()) + 1) );
-                    break;
+                        case 'Саквояжи':
+                            $('#menu_man_sac').text((parseFloat($('#menu_man_sac').text()) + 1));
+                            break;
 
-                    case 'Портмоне':
-                        $('#menu_man_port').text( (parseFloat($('#menu_woman_port').text()) + 1) );
-                    break;
-                  }
-            }
-          });
-        //  $('.popup-menu').effect('drop', 'up show', 1000).fadeIn();
-          $('.popup-menu').show('drop', 'up', 'show', 600);
+                        case 'Дорожные сумки':
+                            $('#menu_man_dor_sum').text((parseFloat($('#menu_man_dor_sum').text()) + 1));
+                            break;
+
+                        case 'Портфели':
+                            $('#menu_man_por').text((parseFloat($('#menu_man_por').text()) + 1));
+                            break;
+
+                        case 'Рюкзаки':
+                            $('#menu_man_ruc').text((parseFloat($('#menu_man_ruc').text()) + 1));
+                            break;
+
+                        case 'Клатчи':
+                            $('#menu_man_cla').text((parseFloat($('#menu_man_cla').text()) + 1));
+                            break;
+
+                        case 'Портмоне':
+                            $('#menu_man_port').text((parseFloat($('#menu_man_port').text()) + 1));
+                            break;
+                    }
+                } else if (item.male === 'woman') {
+                    switch (item.category) {
+                        case 'Сумки':
+                            $('#menu_woman_sum').text((parseFloat($('#menu_woman_sum').text()) + 1));
+                            break;
+
+                        case 'Саквояжи':
+                            $('#menu_woman_sac').text((parseFloat($('#menu_woman_sac').text()) + 1));
+                            break;
+
+                        case 'Рюкзаки':
+                            $('#menu_woman_ruc').text((parseFloat($('#menu_woman_ruc').text()) + 1));
+                            break;
+
+                        case 'Клатчи':
+                            $('#menu_woman_cla').text((parseFloat($('#menu_woman_cla').text()) + 1));
+                            break;
+
+                        case 'Портмоне':
+                            $('#menu_man_port').text((parseFloat($('#menu_woman_port').text()) + 1));
+                            break;
+                    }
+                }
+            });
+            //  $('.popup-menu').effect('drop', 'up show', 1000).fadeIn();
+            $('.popup-menu').show('drop', 'up', 'show', 600);
         });
 
-        $('#back-menu').on('click', function(event) {
-          event.preventDefault();
-          $('.popup-menu').hide('drop', 'up', 'show', 1000);
+        $('#back-menu').on('click', function (event) {
+            event.preventDefault();
+            $('.popup-menu').hide('drop', 'up', 'show', 1000);
         });
     });
 
@@ -1200,63 +1239,63 @@ function actionPage(data) {
 
     //MENU____________________________________________
     //man_____________________________________________
-    $('#a_menu_man_sum').on('click', function(event) {
+    $('#a_menu_man_sum').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Сумки');
     });
 
-    $('#a_menu_man_sac').on('click', function(event) {
+    $('#a_menu_man_sac').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Саквояжи');
     });
 
-    $('#a_menu_man_dor_sum').on('click', function(event) {
+    $('#a_menu_man_dor_sum').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Дорожные сумки');
     });
 
-    $('#a_menu_man_por').on('click', function(event) {
+    $('#a_menu_man_por').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Потрфели');
     });
 
-    $('.man-content-menu #a_menu_man_ruc').on('click', function(event) {
+    $('.man-content-menu #a_menu_man_ruc').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Рюкзаки');
     });
 
-    $('#a_menu_man_cla').on('click', function(event) {
+    $('#a_menu_man_cla').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Клатчи');
     });
 
-    $('#a_menu_man_port').on('click', function(event) {
+    $('#a_menu_man_port').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Портмоне');
     });
 
     //woman_____________________________________________
-    $('#a_menu_woman_sum').on('click', function(event) {
+    $('#a_menu_woman_sum').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Сумки');
     });
 
-    $('#a_menu_woman_sac').on('click', function(event) {
+    $('#a_menu_woman_sac').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Саквояжи');
     });
 
-    $('#a_menu_woman_ruc').on('click', function(event) {
+    $('#a_menu_woman_ruc').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Рюкзаки');
     });
 
-    $('#a_menu_woman_cla').on('click', function(event) {
+    $('#a_menu_woman_cla').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Клатчи');
     });
 
-    $('#a_menu_woman_port').on('click', function(event) {
+    $('#a_menu_woman_port').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Портмоне');
     });
@@ -1264,70 +1303,70 @@ function actionPage(data) {
 
 
 
-        //SUBMENU_LI______________________________________
+    //SUBMENU_LI______________________________________
     //man_____________________________________________
-    $('#li_menu_man_sum').on('click', function(event) {
+    $('#li_menu_man_sum').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Сумки');
     });
 
-    $('#li_menu_man_sac').on('click', function(event) {
+    $('#li_menu_man_sac').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Саквояжи');
     });
 
-    $('#li_menu_man_dor_sum').on('click', function(event) {
+    $('#li_menu_man_dor_sum').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Дорожные сумки');
     });
 
-    $('#li_menu_man_por').on('click', function(event) {
+    $('#li_menu_man_por').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Потрфели');
     });
 
-    $('#li_menu_man_ruc').on('click', function(event) {
+    $('#li_menu_man_ruc').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Рюкзаки');
     });
 
-    $('#li_menu_man_cla').on('click', function(event) {
+    $('#li_menu_man_cla').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Клатчи');
     });
 
-    $('#li_menu_man_port').on('click', function(event) {
+    $('#li_menu_man_port').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Портмоне');
     });
 
     //woman_____________________________________________
-    $('#li_menu_woman_sum').on('click', function(event) {
+    $('#li_menu_woman_sum').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Сумки');
     });
 
-    $('#li_menu_woman_sac').on('click', function(event) {
+    $('#li_menu_woman_sac').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Саквояжи');
     });
 
-    $('#li_menu_woman_ruc').on('click', function(event) {
+    $('#li_menu_woman_ruc').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Рюкзаки');
     });
 
-    $('#li_menu_woman_cla').on('click', function(event) {
+    $('#li_menu_woman_cla').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Клатчи');
     });
 
-    $('#li_menu_woman_port').on('click', function(event) {
+    $('#li_menu_woman_port').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Портмоне');
     });
 
-    
+
     //end_header________________________________________
 
     //sections__________________________________________
@@ -1335,48 +1374,48 @@ function actionPage(data) {
     //index_____________________________________
     if ((document.location.href).substr(document.location.href.length - 10) == "index.html") {
         buf = document.querySelector('#index-man');
-    buf.addEventListener('click', () => {
-        localStorage.setItem('male', 'man');
-        localStorage.setItem('category', 'all');
-        document.location.href = "items.html";
-    });
+        buf.addEventListener('click', () => {
+            localStorage.setItem('male', 'man');
+            localStorage.setItem('category', 'all');
+            document.location.href = "items.html";
+        });
 
-    buf = document.querySelector('#index-woman');
-    buf.addEventListener('click', () => {
-        localStorage.setItem('male', 'woman');
-        localStorage.setItem('category', 'all');
-        document.location.href = "items.html";
-    });
-
-
-    // buf = document.querySelector('.subscribe-input');
-    // buf.addEventListener('click', () => {
-    //     const subWrapper = document.querySelector('.set_sub');
-    //     subWrapper.style.display = 'block';
-    // });
-    
-    // buf = document.querySelector('.subscribe-button');
-    // buf.addEventListener('click', () => {
-    //     const subWrapper = document.querySelector('.set_sub'),
-    //           inpBtnWrapper = document.querySelector('.set_inp_btn'),
-    //           checkMan =  document.querySelector('#check_man'),
-    //           checkWoman =  document.querySelector('#check_woman'),
-    //           checkAgree =  document.querySelector('#check_agree');
-              
-    //           let isValid = ($('#input_sub').val().match(/.+?\@.+/g) || []).length === 1;
-
-    //     if (isValid && checkAgree.checked && (checkMan.checked || checkWoman.checked)) {
-    //         $('.header_thx').text('СПАСИБО!');
-    //         $('.text_thx').text('Вы успешно подписаны на нашу новостную рассылку.');
-
-    //         //SUBSCRIBE________________________________________________________________________
-    //         //SUBSCRIBE________________________________________________________________________
+        buf = document.querySelector('#index-woman');
+        buf.addEventListener('click', () => {
+            localStorage.setItem('male', 'woman');
+            localStorage.setItem('category', 'all');
+            document.location.href = "items.html";
+        });
 
 
-    //         inpBtnWrapper.style.display = 'none';
-    //         subWrapper.style.display = 'none';
-    //     } else alert('ups')
-    // });
+        // buf = document.querySelector('.subscribe-input');
+        // buf.addEventListener('click', () => {
+        //     const subWrapper = document.querySelector('.set_sub');
+        //     subWrapper.style.display = 'block';
+        // });
+
+        // buf = document.querySelector('.subscribe-button');
+        // buf.addEventListener('click', () => {
+        //     const subWrapper = document.querySelector('.set_sub'),
+        //           inpBtnWrapper = document.querySelector('.set_inp_btn'),
+        //           checkMan =  document.querySelector('#check_man'),
+        //           checkWoman =  document.querySelector('#check_woman'),
+        //           checkAgree =  document.querySelector('#check_agree');
+
+        //           let isValid = ($('#input_sub').val().match(/.+?\@.+/g) || []).length === 1;
+
+        //     if (isValid && checkAgree.checked && (checkMan.checked || checkWoman.checked)) {
+        //         $('.header_thx').text('СПАСИБО!');
+        //         $('.text_thx').text('Вы успешно подписаны на нашу новостную рассылку.');
+
+        //         //SUBSCRIBE________________________________________________________________________
+        //         //SUBSCRIBE________________________________________________________________________
+
+
+        //         inpBtnWrapper.style.display = 'none';
+        //         subWrapper.style.display = 'none';
+        //     } else alert('ups')
+        // });
 
 
 
@@ -1394,7 +1433,7 @@ function actionPage(data) {
     // items____________________________________
     if ((document.location.href).substr(document.location.href.length - 10) == "items.html") {
 
-        const discount =  document.querySelector('#items-discount');
+        const discount = document.querySelector('#items-discount');
         discount.addEventListener('click', () => {
             if (localStorage.getItem('sale') === 'false') {
                 localStorage.setItem('sale', 'true');
@@ -1403,8 +1442,8 @@ function actionPage(data) {
             }
             location.reload();
         });
-        const sortMax =  document.querySelector('#items-sort-max-price');
-        const sortMin =  document.querySelector('#items-sort-min-price');
+        const sortMax = document.querySelector('#items-sort-max-price');
+        const sortMin = document.querySelector('#items-sort-min-price');
         sortMax.addEventListener('click', () => {
             if (!(localStorage.getItem('sort') === 'max')) {
                 localStorage.setItem('sort', 'max');
@@ -1421,72 +1460,72 @@ function actionPage(data) {
             }
             location.reload();
         });
-        
-        
-        
+
+
+
     }
 
 
 
     //Category_nav actions___________________________________
     //man_____________________________________________
-    $('#nav_menu_man_sum').on('click', function(event) {
+    $('#nav_menu_man_sum').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Сумки');
     });
 
-    $('#nav_menu_man_sac').on('click', function(event) {
+    $('#nav_menu_man_sac').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Саквояжи');
     });
 
-    $('#nav_menu_man_dor_sum').on('click', function(event) {
+    $('#nav_menu_man_dor_sum').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Дорожные сумки');
     });
 
-    $('#nav_menu_man_por').on('click', function(event) {
+    $('#nav_menu_man_por').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Потрфели');
     });
 
-    $('#nav_menu_man_ruc').on('click', function(event) {
+    $('#nav_menu_man_ruc').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Рюкзаки');
     });
 
-    $('#nav_menu_man_cla').on('click', function(event) {
+    $('#nav_menu_man_cla').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Клатчи');
     });
 
-    $('#nav_menu_man_port').on('click', function(event) {
+    $('#nav_menu_man_port').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Портмоне');
     });
 
     //woman_____________________________________________
-    $('#nav_menu_woman_sum').on('click', function(event) {
+    $('#nav_menu_woman_sum').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Сумки');
     });
 
-    $('#nav_menu_woman_sac').on('click', function(event) {
+    $('#nav_menu_woman_sac').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Саквояжи');
     });
 
-    $('#nav_menu_woman_ruc').on('click', function(event) {
+    $('#nav_menu_woman_ruc').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Рюкзаки');
     });
 
-    $('#nav_menu_woman_cla').on('click', function(event) {
+    $('#nav_menu_woman_cla').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Клатчи');
     });
 
-    $('#nav_menu_woman_port').on('click', function(event) {
+    $('#nav_menu_woman_port').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Портмоне');
     });
@@ -1582,34 +1621,34 @@ function actionPage(data) {
     //col-3____________
 
     //buttons__________
-    $('#call_us_btn').on('click', function(event) {
+    $('#call_us_btn').on('click', function (event) {
         event.preventDefault();
         localStorage.setItem('send_type', 'call_us');
         $('.send_popup').show('fade', 300);
-      });
+    });
 
-      $('#feedback_btn').on('click', function(event) {
+    $('#feedback_btn').on('click', function (event) {
         event.preventDefault();
         localStorage.setItem('send_type', 'feedback');
         $('.feedback_popup').show('fade', 300);
-      });
+    });
 
-      $('.send_popup-close').on('click', function(event) {
+    $('.send_popup-close').on('click', function (event) {
         event.preventDefault();
         $('.send_popup').hide('fade', 300);
-      });
+    });
 
-      $('.feedback_popup-close').on('click', function(event) {
+    $('.feedback_popup-close').on('click', function (event) {
         event.preventDefault();
         $('.feedback_popup').hide('fade', 300);
-      });
+    });
     //buttons__________
 
     //end_footer______________________________________
 
 
     //SEND_MAIL_______________________________________
-    
+
 
     $('form').submit(async (event) => {
         event.preventDefault();
@@ -1624,7 +1663,7 @@ function actionPage(data) {
 
         const send_type = localStorage.getItem('send_type')
         switch (send_type) {
-            case 'call_us' : {
+            case 'call_us': {
                 let pop_up_call = document.querySelector('.call_popup_form')
                 theme = 'Обратный звонок Luxor'
                 name = pop_up_call.querySelector('[name="name"]').value
@@ -1632,7 +1671,7 @@ function actionPage(data) {
                 email = pop_up_call.querySelector('[name="email"]').value
                 break
             }
-            case 'feedback' : {
+            case 'feedback': {
                 let pop_up_feedback = document.querySelector('.feedback_popup-form')
                 theme = 'Отзыв Luxor'
                 name = pop_up_feedback.querySelector('[name="name"]').value
@@ -1641,22 +1680,22 @@ function actionPage(data) {
                 feedback = pop_up_feedback.querySelector('[name="feedback"]').value
                 break
             }
-             case 'order_item' : {
-                 theme = 'Заказ товара Luxor'
-                 good =  db.items[localStorage.getItem('number_detail')].title_name + ' ('
-                 good += db.items[localStorage.getItem('number_detail')].title_declaration + ')'
-                 break
-             }
-             case 'order' : {
+            case 'order_item': {
                 theme = 'Заказ товара Luxor'
-                good =  db.items[localStorage.getItem('number_detail')].title_name + ' ('
+                good = db.items[localStorage.getItem('number_detail')].title_name + ' ('
                 good += db.items[localStorage.getItem('number_detail')].title_declaration + ')'
                 break
             }
-             case 'basket_order' : {
+            case 'order': {
+                theme = 'Заказ товара Luxor'
+                good = db.items[localStorage.getItem('number_detail')].title_name + ' ('
+                good += db.items[localStorage.getItem('number_detail')].title_declaration + ')'
+                break
+            }
+            case 'basket_order': {
                 theme = 'Корзина Luxor'
                 good = '<br>  '
-                cart.forEach(function(el){
+                cart.forEach(function (el) {
                     good += '  ' + db.items[el.id].title_name + ' ('
                     good += db.items[el.id].title_declaration + ') '
                     good += el.count + 'шт <br>'
@@ -1664,9 +1703,9 @@ function actionPage(data) {
                 // localStorage.setItem('basket_items', '')
 
                 break
-            } 
+            }
 
-             default : theme = 'Без темы'
+            default: theme = 'Без темы'
         }
         const sendData = {
             good: good,
@@ -1682,7 +1721,7 @@ function actionPage(data) {
             type: 'POST',
             url: 'mail/mail.php',
             data: sendData,
-            success: function(result) {
+            success: function (result) {
                 console.log(result);
             }
         });
@@ -1702,19 +1741,19 @@ function actionPage(data) {
 
         // switch(sendType) {
         //     case 'call_us':
-              
+
         //     break;
-          
+
         //     case 'feedback':
-            
+
         //     break;
-              
+
         //     case 'order':
-            
+
         //     break;
 
         //     case 'basket_order':
-            
+
         //     break;
         // }
 
@@ -1731,7 +1770,7 @@ function actionPage(data) {
         //     method: 'POST',
         //     body: formData,
         // });
-        
+
         // let result = await response.text();
 
         // alert(result.message);
@@ -1744,21 +1783,21 @@ function actionPage(data) {
 
 
 
-       $('.popup').hide('fade', 300);
-
-
-
-       $('.thx_popup').show('fade', 300);
-       $('.popup-close').on('click', function(event) {
-        event.preventDefault();
         $('.popup').hide('fade', 300);
-      });
-      });
+
+
+
+        $('.thx_popup').show('fade', 300);
+        $('.popup-close').on('click', function (event) {
+            event.preventDefault();
+            $('.popup').hide('fade', 300);
+        });
+    });
     //SEND_MAIL_______________________________________
 
 }
 if (document.querySelector('.subscribe-input') != null) {
-document.querySelector('.subscribe-input').addEventListener('click', () => {
+    document.querySelector('.subscribe-input').addEventListener('click', () => {
         const subWrapper = document.querySelector('.set_sub');
         subWrapper.style.display = 'block';
     });
@@ -1768,8 +1807,11 @@ document.querySelector('.subscribe-input').addEventListener('click', () => {
 
 
 //Ассинхронная функция
-(async function(){
+(async function () {
     db = await getData();
+    countBasket();
+    countLike();
+    initButtons();
     console.log(db);
     if (localStorage.getItem('basket_items') == null) {
         localStorage.setItem('basket_items', '');
