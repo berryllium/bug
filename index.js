@@ -643,6 +643,7 @@ function renderDetail(data) {
         localStorage.setItem('basket_items', JSON.stringify(basket));
         console.log('BASKET:' + (localStorage.getItem('basket_items')));
         countBasket();
+        countLike();
         //localStorage.removeItem('basket_items');
     });
 
@@ -656,6 +657,7 @@ function renderDetail(data) {
     });
     //end_order_________________________________
     countBasket();
+    countLike();
     initButtons();
 }
 // end подробнее
