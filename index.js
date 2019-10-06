@@ -293,6 +293,8 @@ function renderItems(data) {
         });
 
         const buttons = document.querySelectorAll('.current_buttons');
+        console.log(buttons.length)
+        if (buttons.length == 0) return;
         buttons.forEach(el => {
             let page = 'page' + numberPage
             if (el.classList.contains(page)) {
