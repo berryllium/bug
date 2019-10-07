@@ -613,7 +613,7 @@ function renderDetail(data) {
     });
     if (screen.width < 768) {
         $('.fotorama').fotorama({
-            height: 225
+            height: 184
         });
     }
 
