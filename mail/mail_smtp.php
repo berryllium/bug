@@ -30,37 +30,31 @@ if (isset($_POST['send_type'])) {
 		."<br>Телефон: " .$number
 		."<br>E-mail: " .$email
 		."<br>Товар: " .$good;
-	}
-	$mailto = 'me-invest@bk.ru';
-	$fromName = 'Luxor-shop';
-	$fromEmail = 'luxor@me-invest.ru';
+	} 
+		
 	$success = 'Спасибо, ' . $_POST['name'] . '! Скоро мы с Вами свяжемся!';
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "Content-type:text/html;charset=utf-8" . "\r\n";
-    $headers .= 'From: ' . $fromName . ' <' . $fromEmail .'>' . " \r\n";
+    $header = 'From: freestuff47.ru@beget.com\r\n';
 	
 // если настроена почта, то раскомментируй следующую строку, а то, что дальше закомментируй	
-	
+//	mail('gorkundp@yandex.ru', 'Туры в Австралию', $text, $header);
 
 		
-// 		$mail = new PHPMailer\PHPMailer\PHPMailer();
-// 		$mail->CharSet = 'utf-8';
-// 		$mail->IsSMTP(); // enable SMTP
-// 		$mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
-// 		$mail->SMTPAuth = true; // authentication enabled
-// 		$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
-// 		$mail->Host = 'ssl://smtp.mail.ru';
-// 		$mail->Port = 465;
-// 		$mail->Username = 'me-invest@bk.ru';
-// 		$mail->Password = '4904000qq';
-// 		$mail->IsHTML(true);
-// 		$mail->SetFrom('me-invest@bk.ru');
-// 		$mail->Subject = $theme;
-// 		$mail->Body = $text;
-// 		$mail->AddAddress('me-invest@bk.ru');
-
-
-		if (mail($mailto, $theme, $text, $headers)) {
+		$mail = new PHPMailer\PHPMailer\PHPMailer();
+		$mail->CharSet = 'utf-8';
+		$mail->IsSMTP(); // enable SMTP
+		$mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
+		$mail->SMTPAuth = true; // authentication enabled
+		$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+		$mail->Host = 'ssl://smtp.mail.ru';
+		$mail->Port = 465;
+		$mail->Username = 'me-invest@bk.ru';
+		$mail->Password = '4904000qq';
+		$mail->IsHTML(true);
+		$mail->SetFrom('me-invest@bk.ru');
+		$mail->Subject = $theme;
+		$mail->Body = $text;
+		$mail->AddAddress('me-invest@bk.ru');
+		if (!$mail->Send()) {
 			$result = 'Ошибка отправки формы: ' . $mail->ErrorInfo;
 			return;
 		} else {
