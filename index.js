@@ -611,6 +611,11 @@ function renderDetail(data) {
         allowfullscreen: true,
         nav: 'thumbs'
     });
+    if (screen.width < 768) {
+        $('.fotorama').fotorama({
+            height: 225
+        });
+    }
 
 
 
