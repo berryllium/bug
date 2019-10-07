@@ -52,7 +52,7 @@ if (isset($_POST['send_type'])) {
 		$mail->SetFrom('australia@freestuff47.ru');
 		$mail->Subject = $theme;
 		$mail->Body = $text;
-		$mail->AddAddress('gorkundp@yandex.ru');
+		$mail->AddAddress('me-invest@bk.ru');
 		if (!$mail->Send()) {
 			$result = 'Ошибка отправки формы: ' . $mail->ErrorInfo;
 			return;
