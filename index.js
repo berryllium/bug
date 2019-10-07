@@ -667,8 +667,8 @@ function renderDetail(data) {
     $('.order_button').on('click', function (event) {
         event.preventDefault();
         localStorage.setItem('send_type', 'order');
-        $('.send_popup .main-form-btn').text('ЗАКАЗАТЬ');
-        $('.send_popup').show('fade', 300);
+        $('.buy_popup .main-form-btn').text('ЗАКАЗАТЬ');
+        $('.buy_popup').show('fade', 300);
     });
     //end_order_________________________________
     countBasket();
@@ -905,8 +905,8 @@ function renderBasket(data) {
         $('.basket_order_button').on('click', function (event) {
             event.preventDefault();
             localStorage.setItem('send_type', 'basket_order');
-            $('.send_popup .main-form-btn').text('ОФОРМИТЬ ЗАКАЗ');
-            $('.send_popup').show('fade', 300);
+            $('.buy_popup .main-form-btn').text('ОФОРМИТЬ ЗАКАЗ');
+            $('.buy_popup').show('fade', 300);
         });
         //end_order_________________________________
 
@@ -914,6 +914,10 @@ function renderBasket(data) {
     }
     if (localStorage.getItem('basket_items') == '[]') document.querySelector('.basket_order_button').classList.add('hidden')
     else document.querySelector('.basket_order_button').classList.remove('hidden')
+    //order_________________________________
+const itemOrderButton = document.querySelector('.basket_order_button');
+
+//end_order_________________________________
     countBasket();
     countLike();
     initButtons();
@@ -1676,6 +1680,7 @@ function actionPage(data) {
                 break
             }
             case 'order': {
+                let pop_up_buy = document.querySelector('.buy_popup-form')
                 theme = 'Заказ товара Luxor'
                 name = pop_up_buy.querySelector('[name="name"]').value
                 number = pop_up_buy.querySelector('[name="number"]').value
