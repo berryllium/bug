@@ -14,30 +14,59 @@ if (isset($_POST['send_type'])) {
 	
 	if ($send_type == 'feedback') {
 		$text = "Имя клиента: " . $name
-		."\r\nТелефон: " .$number
-		."\r\nE-mail: " .$email
-		."\r\nОтзыв: " .$feedback;
+		."<br>Телефон: " .$number
+		."<br>E-mail: " .$email
+		."<br>Отзыв: " .$feedback;
 	} elseif ($send_type == 'call_us') {
 		$text = "Имя клиента: " . $name
-		."\r\nТелефон: " .$number
-		."\r\nE-mail: " .$email;
+		."<br>Телефон: " .$number
+		."<br>E-mail: " .$email;
 	} elseif ($send_type == 'subscribe') {
-		$text = "\r\nE-mail: " .$email
-		."\r\nПол: " .$sex;
+		$text = "<br>E-mail: " .$email
+		."<br>Пол: " .$sex;
 	}
 	else {
 		$text = "Имя клиента: " . $name
-		."\r\nТелефон: " .$number
-		."\r\nE-mail: " .$email
-		."\r\nТовар: " .$good;
+		."<br>Телефон: " .$number
+		."<br>E-mail: " .$email
+		."<br>Товар: " .$good;
 	} 
 		
 	$success = 'Спасибо, ' . $_POST['name'] . '! Скоро мы с Вами свяжемся!';
-    $header = 'From: me-invest@bk.ru';
+    $header = 'From: freestuff47.ru@beget.com\r\n';
 	
-	// если настроена почта, то раскомментируй следующую строку, а то, что дальше закомментируй	
-	mail('me-invest@bk.ru', $theme, $text, $header);
-	mail('gorkundp@yandex.ru', $theme, $text, $header);
+// если настроена почта, то раскомментируй следующую строку, а то, что дальше закомментируй	
+//	mail('gorkundp@yandex.ru', 'Туры в Австралию', $text, $header);
 
+		
+		$mail = new PHPMailer\PHPMailer\PHPMailer();
+		$mail->CharSet = 'utf-8';
+		$mail->IsSMTP(); // enable SMTP
+		$mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
+		$mail->SMTPAuth = true; // authentication enabled
+		$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+		$mail->Host = 'ssl://smtp.mail.ru';
+		$mail->Port = 465;
+		$mail->Username = 'me-invest@bk.ru';
+		$mail->Password = '4904000qq';
+		$mail->IsHTML(true);
+		$mail->SetFrom('me-invest@bk.ru');
+		$mail->Subject = $theme;
+		$mail->Body = $text;
+		$mail->AddAddress('me-invest@bk.ru');
+		if (!$mail->Send()) {
+			$result = 'Ошибка отправки формы: ' . $mail->ErrorInfo;
+			return;
+		} else {
+			$result = $success;
+			return;
+		}
+		
+	
+     
+} else {
+	
+    $result = 'Ой, что-то пошло не так. Отправка данных не выполнена, попробуйте позднее!'.$name.$email.$number.$good;
 }
+echo $result;
 ?>
