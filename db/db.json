@@ -2,8 +2,8 @@
 	"items": [{
 		"id": 0,
 		"male": "man",
-		"category": "Рюкзаки",
-		"title_declaration": "Рюкзак",
+		"category": "Дорожные сумки",
+		"title_declaration": "Дорожная сумка",
 		"title_name": "Элит",
 		"price": 12500,
 		"sale": false,
@@ -14,10 +14,7 @@
 		"made": "Полностью ручная работа",
 		"time_made": "1-2 дня",
 		"images_quantity": "4",
-		"img1": "./db/img/item1.jpg",
-		"img2": "./db/img/item2.jpg",
-		"img3": "./db/img/item3.jpg",
-		"img4": "./db/img/item4.jpg"
+		"img1": "./db/img/catalog/sumdorM1.jpg"
 	},{
 		"id": 1,
 		"male": "man",
@@ -33,10 +30,10 @@
 		"made": "Полностью ручная работа",
 		"time_made": "1-2 дня",
 		"images_quantity": "4",
-		"img1": "./db/img/item2.jpg",
-		"img2": "./db/img/item2.jpg",
-		"img3": "./db/img/item3.jpg",
-		"img4": "./db/img/item4.jpg"
+		"img1": "./db/img/catalog/rukzakM1_1.jpg",
+		"img2": "./db/img/catalog/rukzakM1_2.jpg",
+		"img3": "./db/img/catalog/rukzakM1_3.jpg",
+		"img4": "./db/img/catalog/rukzakM1_4.jpg"
 	},{
 		"id": 2,
 		"male": "woman",
