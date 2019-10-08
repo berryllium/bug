@@ -491,6 +491,7 @@ function renderItems(data) {
         const nav = document.createElement('div');
         nav.className = 'nav-wrapper';
         nav.innerHTML = `
+        <ul>
             <li id="nav_menu_woman_sum" class="li-width"><a href="items.html">СУМКИ</a></li>
             <li id="nav_menu_woman_sac" class="li-width"><a href="items.html">САКВОЯЖИ</a></li>
             <li id="nav_menu_woman_ruc" class="li-width"><a href="items.html">РЮКЗАКИ</a></li>

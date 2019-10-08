@@ -597,6 +597,7 @@ label {
 
 	.middle-wrapper {
 		margin-top: 30%;
+		text-align: center;
 	}
 
 	p {
@@ -1094,11 +1095,9 @@ label {
 	.nav-items-color-wrapper {
 		background-color: @black;
 	}
-
-	.li-width {
-		width        : 18%;
-		margin-bottom: 3px;
-		margin-top   : 3px;
+	ul {
+		display: flex;
+		justify-content: space-around;
 	}
 }
 
@@ -1944,7 +1943,8 @@ label {
 @media (max-width: 500px) {
 	.nav-items {
 		.li-width {
-			width: 25%;
+			margin: 0;
+			text-align: left;
 		}
 	}
 
@@ -2321,7 +2321,8 @@ label {
 
 	.nav-wrapper ul {
 		display              : grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 3fr 2fr;
+		row-gap: 10px;
 	}
 
 	.sort .nav-link-wrapper {
