@@ -1192,6 +1192,7 @@ function actionPage(data) {
             });
             data.items.forEach((item) => {
                 if (item.male === 'man') {
+                    console.log(item)
                     switch (item.category) {
                         case 'Сумки':
                             $('#menu_man_sum').text((parseFloat($('#menu_man_sum').text()) + 1));
@@ -1254,27 +1255,29 @@ function actionPage(data) {
             event.preventDefault();
             $('.popup-menu').hide('drop', 'up', 'show', 1000);
         });
+        $('#back-man').on('click', function (event) {
+            event.preventDefault();
+            $('.all-content-menu').show('drop', 'up', 'show', 1000);
+            $('.man-content-menu').hide('drop', 'up', 'show', 1000);
+        });
+        $('#back-women').on('click', function (event) {
+            event.preventDefault();
+            $('.all-content-menu').show('drop', 'up', 'show', 1000);
+            $('.woman-content-menu').hide('drop', 'up', 'show', 1000);
+        });
     });
 
 
     buf = document.querySelector('#menu_man');
     buf.addEventListener('click', () => {
-        const wrapper = document.querySelector('.man-content-menu');
-        if (wrapper.style.display === '') {
-            wrapper.style.display = 'block';
-        } else {
-            wrapper.style.display = '';
-        }
+        $('.all-content-menu').hide('drop', 'up', 'show', 1000);
+        $('.man-content-menu').show('drop', 'up', 'show', 1000);
     });
 
     buf = document.querySelector('#menu_woman');
     buf.addEventListener('click', () => {
-        const wrapper = document.querySelector('.woman-content-menu');
-        if (wrapper.style.display === '') {
-            wrapper.style.display = 'block';
-        } else {
-            wrapper.style.display = '';
-        }
+        $('.all-content-menu').hide('drop', 'up', 'show', 1000);
+        $('.woman-content-menu').show('drop', 'up', 'show', 1000);
     });
 
 

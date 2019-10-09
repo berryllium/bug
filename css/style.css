@@ -141,13 +141,9 @@ label {
 #check-menu:checked~.fourth {
   display: none
 }
-
 .logo-wrapper {
   text-align: center;
-  position: absolute;
-  right: -50px;
 }
-
 .logo-wrapper .span-wrapper span {
   font-size: 7pt
 }
@@ -1548,14 +1544,10 @@ label {
   width     : 100%;
   height    : 100%;
   text-align: left;
-  padding   : 15px 10px
+  padding   : 15px 10px;
+  position: absolute;
 }
 
-.popup-menu-content p {
-  font-size          : 14pt;
-  background-position: 0 center;
-  background-repeat  : no-repeat;
-}
 
 .popup-menu-content #menu_catalog {
   background-image     : url(../img/menu/catalog.png);
@@ -1600,8 +1592,9 @@ label {
 }
 
 .menu-main-callback {
-  margin: 15px;
+  margin: 15px 0 0 15px;
 }
+
 
 .menu-main-callback a {
   color              : #fff;
@@ -1630,62 +1623,64 @@ label {
   width           : 242px;
   height          : 47px;
   background-color: #fff;
-  margin          : 0;
+  margin-left     : 15px;
   padding         : 0;
-  width           : 90%;
   color           : black;
 }
 
 
 
-.popup-menu-content button {
+.popup-menu button {
   margin-bottom   : 20px;
   height          : 25px;
   background-color: #0c1219;
   border          : none
 }
 
-.popup-menu-content button p {
+.popup-menu button p {
   color    : #747474;
   display  : inline-block;
-  font-size: 13pt
+  font-size: 13pt;
 }
 
 
-.popup-menu-content .man-content-menu {
-  display   : none;
-  margin-top: 15px
+.popup-menu .man-content-menu {
+  display: none;
+  background-color: #0c1219;
 }
 
-.popup-menu-content .man-content-menu .a-wrapper {
+.popup-menu .woman-content-menu {
+  display: none;
+  background-color: #0c1219; 
+}
+
+.popup-menu .man-content-menu .a-wrapper {
   display: block
 }
 
-.popup-menu-content .man-content-menu a {
+.popup-menu .man-content-menu a,
+.popup-menu .woman-content-menu a {
   display    : inline-block;
-  margin-left: 20px;
-  font-size  : 14pt;
-  color      : #ffffff
+  margin-left: 0px;
+  color      : #ffffff;
+
 }
 
-.popup-menu-content .woman-content-menu {
-  display   : none;
-  margin-top: 15px
-}
 
-.popup-menu-content .woman-content-menu a {
-  display    : inline-block;
-  margin-left: 20px;
-  font-size  : 14pt;
-  color      : #ffffff
-}
 
-.popup-menu-content .menu-main-a {
-  padding-left: 40px;
-  cursor      : pointer;
-  display     : block;
-  font-size   : 16pt;
-  color       : #ffffff
+
+.popup-menu-content .menu-main-a,
+.woman-content-menu a,
+.man-content-menu a {
+  padding-left       : 40px;
+  cursor             : pointer;
+  display            : block;
+  font-size          : 16pt;
+  color              : #ffffff;
+  font-size          : 14pt;
+  background-position: 0 center;
+  background-repeat  : no-repeat;
+  margin-bottom      : 10px;
 }
 
 .popup-menu-content p {
@@ -1863,7 +1858,9 @@ label {
   }
 
   .logo-wrapper {
-    float: right
+    text-align: center;
+    position  : absolute;
+    right     : -50px;
   }
 
   .header-margin-wrapper .topmenu {
@@ -2080,14 +2077,18 @@ label {
   form input {
     font-size: 20px !important
   }
+
   .popup-menu-content .menu-main-a {
     font-size: 14pt;
+  }
+
+  .popup-menu {
+    width : 100vw;
+    height: 101vh;
   }
 }
 
 .popup-menu {
-  width: 100vw;
-  height: 101vh;
   /* display: block !important; */
 }
 
