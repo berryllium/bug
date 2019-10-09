@@ -1057,6 +1057,14 @@ function initButtons() {
         });
     }
 
+    if ($('#menu_call_us_btn') != null) {
+        $('#menu_call_us_btn').on('click', function (event) {
+            event.preventDefault();
+            localStorage.setItem('send_type', 'call_us');
+            $('.send_popup').show('fade', 300);
+        });
+    }
+
     if ($('#feedback_btn') != null) {
         $('#feedback_btn').on('click', function (event) {
             event.preventDefault();
@@ -1177,7 +1185,7 @@ function actionPage(data) {
     $(document).ready(function () {
         $('#burger-btn').on('click', function (event) {
             event.preventDefault();
-
+            $('#burger-btn').fadeOut();
             const menuA = document.querySelectorAll('.clear_p');
             menuA.forEach((p) => {
                 p.textContent = '0';
@@ -1242,6 +1250,7 @@ function actionPage(data) {
         });
 
         $('#back-menu').on('click', function (event) {
+            $('#burger-btn').fadeIn();
             event.preventDefault();
             $('.popup-menu').hide('drop', 'up', 'show', 1000);
         });
