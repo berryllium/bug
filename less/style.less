@@ -652,14 +652,12 @@ label {
 			padding-top     : 6px;
 			padding-bottom  : 6px;
 			width           : 354px;
-			text-align      : left;
 			font-size       : 18pt;
 			font-weight     : bold;
 		}
 
 		.advantage-img-wrapper {
 			display    : inline-block;
-			background : url(../img/advantages/bag.jpg) center no-repeat;
 			background : cover;
 			width      : 354px;
 			height     : 270px;
@@ -695,6 +693,15 @@ label {
 				url(../img/advantages/bag.jpg) center no-repeat;
 				background: cover;
 			}
+		}
+		&:nth-child(1) .advantage-img-wrapper {
+			background : url(../img/advantages/bag1.jpg) center no-repeat;
+		}
+		&:nth-child(2) .advantage-img-wrapper {
+			background : url(../img/advantages/bag2.jpg) center no-repeat;
+		}
+		&:nth-child(3) .advantage-img-wrapper {
+			background : url(../img/advantages/bag3.jpg) center no-repeat;
 		}
 	}
 }
