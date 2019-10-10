@@ -13,7 +13,7 @@ let db;
 
 function set_sex() {
     console.log(event)
-if (event.target.id == 'index-man') {
+    if (event.target.id == 'index-man') {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'all');
     } else if (event.target.id == 'index-woman') {
@@ -881,30 +881,30 @@ function renderBasket(data) {
             else cartButton.classList.add('hidden')
 
             const likeButton = card.querySelector('.p_like');
-                    likeButton.addEventListener('click', () => {
-                        let like;
-                        if (((localStorage.getItem('like_items')) == null) || ((localStorage.getItem('like_items')) == "")) {
-                            like = [];
-                            localStorage.setItem('like_items', JSON.stringify(like));
-                        }
-                        like = JSON.parse(localStorage.getItem('like_items'));
+            likeButton.addEventListener('click', () => {
+                let like;
+                if (((localStorage.getItem('like_items')) == null) || ((localStorage.getItem('like_items')) == "")) {
+                    like = [];
+                    localStorage.setItem('like_items', JSON.stringify(like));
+                }
+                like = JSON.parse(localStorage.getItem('like_items'));
 
-                        let counted = false;
-                        like.forEach((i) => {
-                            if (i.id === item.id) {
-                                counted = true;
-                                i.count += 1;
-                            }
-                        });
-                        if (!counted) {
-                            like.push({ 'id': item.id, 'count': 1 });
-                        }
-                        localStorage.setItem('like_items', JSON.stringify(like));
-                        console.log('BASKET:' + (localStorage.getItem('like_items')));
-                        likeButton.innerHTML = 'Отложено';
-                        console.log(this);
-                        countLike();
-                    });
+                let counted = false;
+                like.forEach((i) => {
+                    if (i.id === item.id) {
+                        counted = true;
+                        i.count += 1;
+                    }
+                });
+                if (!counted) {
+                    like.push({ 'id': item.id, 'count': 1 });
+                }
+                localStorage.setItem('like_items', JSON.stringify(like));
+                console.log('BASKET:' + (localStorage.getItem('like_items')));
+                likeButton.innerHTML = 'Отложено';
+                console.log(this);
+                countLike();
+            });
         });
 
         //order_________________________________
@@ -921,9 +921,9 @@ function renderBasket(data) {
     if (localStorage.getItem('basket_items') == '[]') document.querySelector('.basket_order_button').classList.add('hidden')
     else document.querySelector('.basket_order_button').classList.remove('hidden')
     //order_________________________________
-const itemOrderButton = document.querySelector('.basket_order_button');
+    const itemOrderButton = document.querySelector('.basket_order_button');
 
-//end_order_________________________________
+    //end_order_________________________________
     countBasket();
     countLike();
     initButtons();
@@ -969,39 +969,39 @@ function renderLike(data) {
 
             const itemFullButton = card.querySelector('.like-button-full');
 
-                    itemFullButton.addEventListener('click', () => {
-                        localStorage.setItem('number_detail', item.id);
-                        document.location.href = "detail.html";
-                    });
+            itemFullButton.addEventListener('click', () => {
+                localStorage.setItem('number_detail', item.id);
+                document.location.href = "detail.html";
+            });
 
-                    const basketButton = card.querySelector('.like-button-basket');
-                    basketButton.addEventListener('click', () => {
-                        let basket;
-                        if (((localStorage.getItem('basket_items')) == null) || ((localStorage.getItem('basket_items')) == "")) {
-                            basket = [];
-                            localStorage.setItem('basket_items', JSON.stringify(basket));
-                        }
-                        basket = JSON.parse(localStorage.getItem('basket_items'));
+            const basketButton = card.querySelector('.like-button-basket');
+            basketButton.addEventListener('click', () => {
+                let basket;
+                if (((localStorage.getItem('basket_items')) == null) || ((localStorage.getItem('basket_items')) == "")) {
+                    basket = [];
+                    localStorage.setItem('basket_items', JSON.stringify(basket));
+                }
+                basket = JSON.parse(localStorage.getItem('basket_items'));
 
-                        let counted = false;
-                        basket.forEach((i) => {
-                            if (i.id === item.id) {
-                                counted = true;
-                                i.count += 1;
-                            }
-                        });
-                        if (!counted) {
-                            basket.push({ 'id': item.id, 'count': 1 });
-                        }
-                        localStorage.setItem('basket_items', JSON.stringify(basket));
-                        console.log('BASKET:' + (localStorage.getItem('basket_items')));
-                        const buttonImg = basketButton.querySelector('.item-button-img');
-                        buttonImg.setAttribute('src', './img/items/black_basket.png');
-                        console.log(buttonImg);
-                        countBasket();
-                        countLike();
-                        //  localStorage.removeItem('basket_items');
-                    });
+                let counted = false;
+                basket.forEach((i) => {
+                    if (i.id === item.id) {
+                        counted = true;
+                        i.count += 1;
+                    }
+                });
+                if (!counted) {
+                    basket.push({ 'id': item.id, 'count': 1 });
+                }
+                localStorage.setItem('basket_items', JSON.stringify(basket));
+                console.log('BASKET:' + (localStorage.getItem('basket_items')));
+                const buttonImg = basketButton.querySelector('.item-button-img');
+                buttonImg.setAttribute('src', './img/items/black_basket.png');
+                console.log(buttonImg);
+                countBasket();
+                countLike();
+                //  localStorage.removeItem('basket_items');
+            });
 
 
             //DELETE
@@ -1018,7 +1018,7 @@ function renderLike(data) {
                 localStorage.setItem('like_items', JSON.stringify(like));
                 countLike();
             });
-            
+
             //end_DELETE
 
         });
@@ -1030,7 +1030,7 @@ function renderLike(data) {
             $('.send_popup').show('fade', 300);
         });
         //end_order_________________________________
-        
+
     }
 
     countBasket();
@@ -1280,6 +1280,15 @@ function actionPage(data) {
         $('.woman-content-menu').show('drop', 'up', 'show', 1000);
     });
 
+    buf = document.querySelector('#menu_catalog');
+    buf.addEventListener('click', () => {
+        if ($(".catalog-content-menu").is(":visible")) {
+            $('.catalog-content-menu').hide('show')
+        } else {
+        $('.catalog-content-menu').show('slow')
+        }
+        $('.down-arrow-menu').toggleClass('down-arrow-menu_transform')
+    });
 
     //MENU____________________________________________
     //man_____________________________________________
@@ -1693,7 +1702,7 @@ function actionPage(data) {
                 name = pop_up_buy.querySelector('[name="name"]').value
                 number = pop_up_buy.querySelector('[name="number"]').value
                 email = pop_up_buy.querySelector('[name="email"]').value
-                good =  db.items[localStorage.getItem('number_detail')].title_name + ' ('
+                good = db.items[localStorage.getItem('number_detail')].title_name + ' ('
                 good += db.items[localStorage.getItem('number_detail')].title_declaration + ')'
                 break
             }
@@ -1703,7 +1712,7 @@ function actionPage(data) {
                 name = pop_up_buy.querySelector('[name="name"]').value
                 number = pop_up_buy.querySelector('[name="number"]').value
                 email = pop_up_buy.querySelector('[name="email"]').value
-                good =  db.items[localStorage.getItem('number_detail')].title_name + ' ('
+                good = db.items[localStorage.getItem('number_detail')].title_name + ' ('
                 good += db.items[localStorage.getItem('number_detail')].title_declaration + ')'
                 break
             }
@@ -1859,7 +1868,7 @@ if (document.querySelector('.subscribe-input') != null) {
     }
 
     actionPage(db);
- 
+
     countBasket();
     countLike();
 }());
