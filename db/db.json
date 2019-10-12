@@ -88,8 +88,8 @@
 		"img1": "./db/img/catalog/sumkiM5_1.jpg",
 		"img2": "./db/img/catalog/sumkiM5_2.jpg"
 	},{
-		"id": 37,
-		"male": "man",
+		"id": 5,
+		"male": "woman",
 		"category": "Рюкзаки",
 		"title_declaration": "Рюкзак",
 		"title_name": "Василий",

@@ -278,7 +278,7 @@ function renderItems(data) {
         }
         document.location.href = "items.html";
     });
-    
+
 
     //changePage____________________________________
 
@@ -453,7 +453,7 @@ function renderItems(data) {
     //pages___________________________________________________
 
 
-
+    //Breadcrumbs
 
     //nav and category_nav_________________________________________
     const navMale = document.querySelector('.get_male'),
@@ -518,10 +518,10 @@ function renderItems(data) {
     //pages_________________________________________
 
     // Активный пункт второго меню
-    
-    function makeActive (id) {
-        $(id).children('a').css('color','#c4b221')
-    } 
+
+    function makeActive(id) {
+        $(id).children('a').css('color', '#c4b221')
+    }
 
     const activeSex = localStorage.getItem('male')
     const activeCat = localStorage.getItem('category')
@@ -535,7 +535,7 @@ function renderItems(data) {
     if (activeCat == 'Клатчи') makeActive(`#nav_menu_${activeSex}_cla`)
 
     // END_Активный пункт меню
-    
+
 
     countBasket();
     countLike()
@@ -700,6 +700,30 @@ function renderDetail(data) {
         $('.buy_popup').show('fade', 300);
     });
     //end_order_________________________________
+
+    // строим Breadcrumbs
+    localStorage.getItem('male') == 'man' ? $('.get_male').text('Мужчины') : $('.get_male').text('Женщины')
+    $('.get_category').text(items[i].category)
+    $('.get_name').text(items[i].title_name)
+
+
+
+    $('.get_male').on('click', () => {
+        event.preventDefault()
+        localStorage.setItem('male', items[i].male)
+        localStorage.setItem('category', 'all')
+        $(location).attr('href', 'items.html')
+    })
+
+    $('.get_category').on('click', () => {
+        event.preventDefault()
+        localStorage.setItem('male', items[i].male)
+        localStorage.setItem('category', items[i].category)
+        $(location).attr('href', 'items.html')
+    })
+
+
+
     countBasket();
     countLike();
     initButtons();
@@ -1245,8 +1269,15 @@ function actionPage(data) {
                         case 'Портмоне':
                             $('#menu_man_port').text((parseFloat($('#menu_man_port').text()) + 1));
                             break;
+
+
+
                     }
+
+                    $('#menu_man_all').text((parseFloat($('#menu_man_all').text()) + 1));
+
                 } else if (item.male === 'woman') {
+
                     switch (item.category) {
                         case 'Сумки':
                             $('#menu_woman_sum').text((parseFloat($('#menu_woman_sum').text()) + 1));
@@ -1268,6 +1299,7 @@ function actionPage(data) {
                             $('#menu_man_port').text((parseFloat($('#menu_woman_port').text()) + 1));
                             break;
                     }
+                    $('#menu_woman_all').text((parseFloat($('#menu_woman_all').text()) + 1));
                 }
             });
             //  $('.popup-menu').effect('drop', 'up show', 1000).fadeIn();
@@ -1309,7 +1341,7 @@ function actionPage(data) {
         if ($(".catalog-content-menu").is(":visible")) {
             $('.catalog-content-menu').hide('show')
         } else {
-        $('.catalog-content-menu').show('slow')
+            $('.catalog-content-menu').show('slow')
         }
         $('.down-arrow-menu').toggleClass('down-arrow-menu_transform')
     });
@@ -1329,7 +1361,7 @@ function actionPage(data) {
     $('#a_menu_man_dor_sum').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Дорожные сумки');
-        
+
     });
 
     $('#a_menu_man_por').on('click', function (event) {
@@ -1350,6 +1382,10 @@ function actionPage(data) {
     $('#a_menu_man_port').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Портмоне');
+    });
+    $('#a_menu_man_all').on('click', function (event) {
+        localStorage.setItem('male', 'man');
+        localStorage.setItem('category', 'all');
     });
 
     //woman_____________________________________________
@@ -1376,6 +1412,10 @@ function actionPage(data) {
     $('#a_menu_woman_port').on('click', function (event) {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'Портмоне');
+    });
+    $('#a_menu_woman_all').on('click', function (event) {
+        localStorage.setItem('male', 'woman');
+        localStorage.setItem('category', 'all');
     });
 
 
