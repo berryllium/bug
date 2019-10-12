@@ -29,7 +29,7 @@ button {
 }
 
 .green-button:hover {
-  color: #ffffff;
+  color           : #ffffff;
   background-color: #615b27;
 }
 
@@ -150,9 +150,11 @@ label {
 #check-menu:checked~.fourth {
   display: none
 }
+
 .logo-wrapper {
   text-align: center;
 }
+
 .logo-wrapper .span-wrapper span {
   font-size: 7pt
 }
@@ -702,8 +704,11 @@ label {
 }
 
 .nav-male {
-  text-transform: uppercase;
-  font-size: 20px;
+  text-transform  : uppercase;
+  font-size       : 18px;
+  background-color: gainsboro;
+  color           : black;
+  font-weight: bold;
 }
 
 .nav-link-wrapper .black-color {
@@ -827,7 +832,7 @@ label {
 }
 
 .detailed-text-wrapper img {
-  width: 100%;
+  width         : 100%;
   vertical-align: baseline;
 }
 
@@ -1017,7 +1022,7 @@ label {
 }
 
 .item-cart .item-green-button:hover {
-  color: #ffffff;
+  color           : #ffffff;
   background-color: #615b27;
 }
 
@@ -1582,7 +1587,7 @@ label {
   height    : 100%;
   text-align: left;
   padding   : 15px 10px;
-  position: absolute;
+  position  : absolute;
 }
 
 
@@ -1687,19 +1692,20 @@ label {
 }
 
 .popup-menu .catalog-content-menu a {
-  margin-right: 15px;
-  margin-left: 15px;
-  display: flex;
+  margin-right   : 15px;
+  margin-left    : 15px;
+  display        : flex;
   justify-content: space-between;
 }
+
 .popup-menu .man-content-menu {
-  display: none;
+  display         : none;
   background-color: #0c1219;
 }
 
 .popup-menu .woman-content-menu {
-  display: none;
-  background-color: #0c1219; 
+  display         : none;
+  background-color: #0c1219;
 }
 
 .popup-menu .man-content-menu .a-wrapper {
@@ -1745,7 +1751,7 @@ label {
 
 .popup-menu-content .down-arrow-menu {
   margin-left: 6px;
-  transition: 0.3s
+  transition : 0.3s
 }
 
 .popup-menu-content .down-arrow-menu_transform {
@@ -2023,7 +2029,7 @@ label {
 
   .nav-pages .pages-buttons-wrapper {
     text-align: center;
-    margin: 10px 0;
+    margin    : 10px 0;
   }
 
   .nav-pages-wrapper div {
@@ -2136,7 +2142,7 @@ label {
   }
 
   .popup-menu {
-    width : 100vw;
+    width     : 100vw;
     min-height: 100vh;
   }
 }
