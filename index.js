@@ -19,6 +19,9 @@ function set_sex() {
     } else if (event.target.id == 'index-woman') {
         localStorage.setItem('male', 'woman');
         localStorage.setItem('category', 'all');
+    } else if (event.target.id == 'index-woman') {
+        localStorage.setItem('male', 'woman');
+        localStorage.setItem('category', 'all');
     }
     document.location.href = "items.html";
 }
@@ -453,8 +456,6 @@ function renderItems(data) {
     //pages___________________________________________________
 
 
-    //Breadcrumbs
-
     //nav and category_nav_________________________________________
     const navMale = document.querySelector('.get_male'),
         navCategory = document.querySelector('.get_category'),
@@ -468,6 +469,9 @@ function renderItems(data) {
         navMale.textContent = 'Мужчины';
     } else if (localStorage.getItem('male') === 'woman') {
         navMale.textContent = 'Женщины';
+    } 
+    else if (localStorage.getItem('male') === 'all') {
+        navMale.textContent = 'Мужчины и Женщины';
     } else {
         navMale.textContent = 'Акции';
     }
@@ -487,11 +491,37 @@ function renderItems(data) {
         </ul>
         `;
         navWrapper.appendChild(nav);
-    } else {
+    } else if (localStorage.getItem('male') === 'woman'){
         const nav = document.createElement('div');
         nav.className = 'nav-wrapper';
         nav.innerHTML = `
         <ul>
+            <li id="nav_menu_woman_sum" class="li-width"><a href="items.html">СУМКИ</a></li>
+            <li id="nav_menu_woman_sac" class="li-width"><a href="items.html">САКВОЯЖИ</a></li>
+            <li id="nav_menu_woman_ruc" class="li-width"><a href="items.html">РЮКЗАКИ</a></li>
+            <li id="nav_menu_woman_cla" class="li-width"><a href="items.html">КЛАТЧИ</a></li>
+            <li id="nav_menu_woman_port" class="li-width"><a href="items.html">ПОРТМОНЕ</a></li>
+        </ul>
+        `;
+        navWrapper.appendChild(nav);
+    }
+
+    else {
+        const nav = document.createElement('div');
+        nav.className = 'nav-wrapper';
+        nav.innerHTML = `
+        <h2 class="nav-male">Мужчины</h2>
+        <ul> 
+            <li id="nav_menu_man_sum" class="li-width"><a href="items.html">СУМКИ</a></li>
+            <li id="nav_menu_man_sac" class="li-width"><a href="items.html">САКВОЯЖИ</a></li>
+            <li id="nav_menu_man_dor_sum" class="li-width"><a href="items.html">ДОРОЖНЫЕ СУМКИ</a></li>
+            <li id="nav_menu_man_por" class="li-width"><a href="items.html">ПОРТФЕЛИ</a></li>
+            <li id="nav_menu_man_ruc" class="li-width"><a href="items.html">РЮКЗАКИ</a></li>
+            <li id="nav_menu_man_cla" class="li-width"><a href="items.html">КЛАТЧИ</a></li>
+            <li id="nav_menu_man_port" class="li-width"><a href="items.html">ПОРТМОНЕ</a></li>
+        </ul><br>
+        <h2 class="nav-male">Женщины</h2>
+        <ul> 
             <li id="nav_menu_woman_sum" class="li-width"><a href="items.html">СУМКИ</a></li>
             <li id="nav_menu_woman_sac" class="li-width"><a href="items.html">САКВОЯЖИ</a></li>
             <li id="nav_menu_woman_ruc" class="li-width"><a href="items.html">РЮКЗАКИ</a></li>
@@ -534,6 +564,12 @@ function renderItems(data) {
     if (activeCat == 'Портфели') makeActive(`#nav_menu_${activeSex}_por`)
     if (activeCat == 'Клатчи') makeActive(`#nav_menu_${activeSex}_cla`)
 
+    $('.get_catalog').on('click', () => {
+        event.preventDefault()
+        localStorage.setItem('male', 'all')
+        localStorage.setItem('category', 'all')
+        $(location).attr('href', 'items.html')
+    })
     // END_Активный пункт меню
 
 
@@ -702,7 +738,7 @@ function renderDetail(data) {
     //end_order_________________________________
 
     // строим Breadcrumbs
-    localStorage.getItem('male') == 'man' ? $('.get_male').text('Мужчины') : $('.get_male').text('Женщины')
+    items[i].male == 'man' ? $('.get_male').text('Мужчины') : $('.get_male').text('Женщины')
     $('.get_category').text(items[i].category)
     $('.get_name').text(items[i].title_name)
 
@@ -719,6 +755,14 @@ function renderDetail(data) {
         event.preventDefault()
         localStorage.setItem('male', items[i].male)
         localStorage.setItem('category', items[i].category)
+        $(location).attr('href', 'items.html')
+    })
+
+    $('.get_catalog').on('click', () => {
+        alert('catalog')
+        event.preventDefault()
+        localStorage.setItem('male', 'all')
+        localStorage.setItem('category', 'all')
         $(location).attr('href', 'items.html')
     })
 
@@ -1418,7 +1462,12 @@ function actionPage(data) {
         localStorage.setItem('category', 'all');
     });
 
-
+    // весь каталог
+    $('#menu_all').on('click', function (event) {
+        localStorage.setItem('male', 'all');
+        localStorage.setItem('category', 'all');
+        document.location.href = 'items.html';
+    });
 
 
     //SUBMENU_LI______________________________________
