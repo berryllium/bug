@@ -278,7 +278,7 @@ function renderItems(data) {
         }
         document.location.href = "items.html";
     });
-
+    
 
     //changePage____________________________________
 
@@ -516,6 +516,26 @@ function renderItems(data) {
     //     }
     // }
     //pages_________________________________________
+
+    // Активный пункт второго меню
+    
+    function makeActive (id) {
+        $(id).children('a').css('color','#c4b221')
+    } 
+
+    const activeSex = localStorage.getItem('male')
+    const activeCat = localStorage.getItem('category')
+
+    if (activeCat == 'Сумки') makeActive(`#nav_menu_${activeSex}_sum`)
+    if (activeCat == 'Дорожные сумки') makeActive(`#nav_menu_${activeSex}_dor_sum`)
+    if (activeCat == 'Рюкзаки') makeActive(`#nav_menu_${activeSex}_ruc`)
+    if (activeCat == 'Портмоне') makeActive(`#nav_menu_${activeSex}_port`)
+    if (activeCat == 'Саквояжи') makeActive(`#nav_menu_${activeSex}_sac`)
+    if (activeCat == 'Портфели') makeActive(`#nav_menu_${activeSex}_por`)
+    if (activeCat == 'Клатчи') makeActive(`#nav_menu_${activeSex}_cla`)
+
+    // END_Активный пункт меню
+    
 
     countBasket();
     countLike()
@@ -1207,6 +1227,7 @@ function actionPage(data) {
 
                         case 'Дорожные сумки':
                             $('#menu_man_dor_sum').text((parseFloat($('#menu_man_dor_sum').text()) + 1));
+                            alert('sumki')
                             break;
 
                         case 'Портфели':
@@ -1308,12 +1329,12 @@ function actionPage(data) {
     $('#a_menu_man_dor_sum').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Дорожные сумки');
-        event.style.css('color', blue)
+        
     });
 
     $('#a_menu_man_por').on('click', function (event) {
         localStorage.setItem('male', 'man');
-        localStorage.setItem('category', 'Потрфели');
+        localStorage.setItem('category', 'Портфели');
     });
 
     $('.man-content-menu #a_menu_man_ruc').on('click', function (event) {
@@ -1379,7 +1400,7 @@ function actionPage(data) {
 
     $('#li_menu_man_por').on('click', function (event) {
         localStorage.setItem('male', 'man');
-        localStorage.setItem('category', 'Потрфели');
+        localStorage.setItem('category', 'Портфели');
     });
 
     $('#li_menu_man_ruc').on('click', function (event) {
@@ -1506,7 +1527,7 @@ function actionPage(data) {
 
     $('#nav_menu_man_por').on('click', function (event) {
         localStorage.setItem('male', 'man');
-        localStorage.setItem('category', 'Потрфели');
+        localStorage.setItem('category', 'Портфели');
     });
 
     $('#nav_menu_man_ruc').on('click', function (event) {
