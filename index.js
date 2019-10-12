@@ -614,8 +614,11 @@ function renderDetail(data) {
     });
     if (screen.width < 768) {
         $('.fotorama').fotorama({
-            height: 184
+            width: detailedRowWrapper.clientWidth,
+            height: 280,
+            width: 290
         });
+        $('.fotorama__nav-wrap').hide()
     }
 
 
@@ -1305,6 +1308,7 @@ function actionPage(data) {
     $('#a_menu_man_dor_sum').on('click', function (event) {
         localStorage.setItem('male', 'man');
         localStorage.setItem('category', 'Дорожные сумки');
+        event.style.css('color', blue)
     });
 
     $('#a_menu_man_por').on('click', function (event) {

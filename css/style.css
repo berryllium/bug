@@ -28,11 +28,20 @@ button {
   padding         : 5px 20px
 }
 
+.green-button:hover {
+  color: #ffffff;
+  background-color: #615b27;
+}
+
 .white-green-button {
   background-color: #ffffff;
   color           : #c4b221;
   font-size       : 16pt;
   border          : none
+}
+
+.white-green-button:hover {
+  background-color: #3b3b3b;
 }
 
 .white-button {
@@ -356,7 +365,7 @@ label {
   align-items     : center;
   position        : absolute;
   top             : 0;
-  right           : 0;
+  right           : 10px;
   padding         : 0;
   width           : 15px;
   height          : 15px;
@@ -812,7 +821,8 @@ label {
 }
 
 .detailed-text-wrapper img {
-  width: 100%
+  width: 100%;
+  vertical-align: baseline;
 }
 
 .detailed-text-wrapper .price-wrapper .price {
@@ -850,6 +860,10 @@ label {
   color      : #000000;
   border     : 1px solid #c4b221;
   margin-top : 15px
+}
+
+.detailed-text-wrapper .add-basket-button:hover {
+  background-color: #fff;
 }
 
 .detailed .detailed-nav-wrapper {
@@ -955,7 +969,11 @@ label {
 }
 
 .item-cart .item-button-full {
-  padding: 5px 10px
+  padding: 5px 10px;
+}
+
+.item-cart .item-button-full:hover {
+  background-color: #d6d6d6;
 }
 
 .item-cart .item-button-basket {
@@ -965,8 +983,16 @@ label {
   padding-left  : 6px
 }
 
+.item-cart .item-button-basket:hover {
+  background-color: #d6d6d6;
+}
+
 .item-cart .item-button-heart {
   padding: 5px 8px
+}
+
+.item-cart .item-button-heart:hover {
+  background-color: #d6d6d6;
 }
 
 .item-cart .item-button-img {
@@ -982,6 +1008,11 @@ label {
   font-weight     : 100;
   border          : none;
   margin-bottom   : 10px
+}
+
+.item-cart .item-green-button:hover {
+  color: #ffffff;
+  background-color: #615b27;
 }
 
 .nav-pages {
@@ -1628,7 +1659,9 @@ label {
   color           : black;
 }
 
-
+#menu_call_us_btn:hover {
+  background-color: #d6d6d6;
+}
 
 .popup-menu button {
   margin-bottom   : 20px;
@@ -1984,7 +2017,7 @@ label {
 
   .nav-pages .pages-buttons-wrapper {
     text-align: center;
-    margin-top: 10px
+    margin: 10px 0;
   }
 
   .nav-pages-wrapper div {
@@ -2098,7 +2131,7 @@ label {
 
   .popup-menu {
     width : 100vw;
-    height: 101vh;
+    min-height: 100vh;
   }
 }
 
