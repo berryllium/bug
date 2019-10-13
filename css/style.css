@@ -772,21 +772,31 @@ label {
   background-color: #ffffff;
   display         : inline-block;
   text-align      : left;
-  padding-left    : 25px;
+  padding    : 5px 5px 5px 20px;
   margin-bottom   : 40px;
-  border          : 1px solid #c4b221
+  border          : 1px solid #c4b221;
+  width: 100%;
+  color: black;
+  
 }
 
 .policy-text-wrapper h3 {
   font-size     : 16pt;
   color         : #000000;
-  padding-bottom: 10px
+  padding-bottom: 10px;
+  text-transform: uppercase;
 }
 
 .policy-text-wrapper p {
   font-size     : 14pt;
   color         : #000000;
   display       : inline-block;
+  padding-bottom: 15px
+}
+
+.policy-text-wrapper li {
+  font-size     : 14pt;
+  color         : #000000;
   padding-bottom: 15px
 }
 
