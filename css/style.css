@@ -794,6 +794,19 @@ label {
   padding-bottom: 15px
 }
 
+.policy-text-wrapper p.contacts-li {
+  display       : block;
+  padding-bottom: 0
+}
+
+.policy-text-wrapper p.contacts-li a {
+  text-decoration: none;
+}
+
+.policy-text-wrapper p[class*="toggle"] {
+  font-weight: bold;
+}
+
 .policy-text-wrapper li {
   font-size     : 14pt;
   color         : #000000;
@@ -2168,8 +2181,6 @@ label {
 .popup-menu {
   /* display: block !important; */
 }
-
-//МЕНЮ дополнительно
 
 
 /*# sourceMappingURL=./style.css.map */
