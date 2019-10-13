@@ -246,40 +246,31 @@ function renderItems(data) {
     if (items.length == localStorage.getItem('count_items') * (iPage - 1)) iPage--
 
 
-    const showButton = document.querySelector('.show-number-button');
-    const textShowButton = showButton.querySelector('.set_count_items');
+    // const showButton = document.querySelector('.show-number-button');
+    // const textShowButton = showButton.querySelector('.set_count_items');
+    
     switch (localStorage.getItem('count_items')) {
+        
+
         case '9':
-            textShowButton.textContent = 'Show 12';
+            document.getElementsByTagName('option')[0].selected = 'selected'
             break;
 
         case '12':
-            textShowButton.textContent = 'Show 24';
+            document.getElementsByTagName('option')[1].selected = 'selected'
             break;
 
         case '24':
-            textShowButton.textContent = 'Show 9';
+            document.getElementsByTagName('option')[2].selected = 'selected'
             break;
     }
-    showButton.addEventListener('click', () => {
 
-        switch (localStorage.getItem('count_items')) {
-            case '9':
-                localStorage.setItem('count_items', '12');
-                textShowButton.textContent = 'Show 12';
-                break;
 
-            case '12':
-                localStorage.setItem('count_items', '24');
-                textShowButton.textContent = 'Show 24';
-                break;
 
-            case '24':
-                localStorage.setItem('count_items', '9');
-                textShowButton.textContent = 'Show 9';
-                break;
-        }
-        document.location.href = "items.html";
+    $('#select').change(function() {
+        const val = $("#select option:selected").text();
+        localStorage.setItem('count_items', val)
+        document.location.href = 'items.html'
     });
 
 
