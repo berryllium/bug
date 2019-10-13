@@ -871,7 +871,7 @@ label {
   width   : 25px;
   height  : 30px;
   position: relative;
-  bottom  : 10px
+  bottom  : 0px
 }
 
 .detailed-text-wrapper .after-line {
@@ -1719,7 +1719,7 @@ label {
 }
 
 .popup-menu .catalog-content-menu {
-  display: none;
+  display: block;
 }
 
 .popup-menu .catalog-content-menu a {
