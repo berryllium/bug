@@ -648,6 +648,7 @@ function renderDetail(data) {
                   <button class="green-button order_button">БЫСТРЫЙ ЗАКАЗ</button> <br>
                   <button class="add-basket-button">ДОБАВИТЬ В КОРЗИНУ</button> <br>
             `;
+            $('.detail-description').text(items[i].detail)
     detailedTextWrapper.appendChild(card);
 
 
@@ -770,8 +771,11 @@ function renderDetail(data) {
 
     document.querySelector('.detailed-nav-wrapper').addEventListener('click', () => {
         if (event.target.classList.contains('detail-li-a')) {
-            alert('ok')
+            const filter = event.target.dataset.filter
+            $('.detail-li-a').removeClass('active')
+            $('.detail-p').addClass('hidden')
             event.target.classList.add('active')
+            $(`.detail-p[data-filter="${filter}"]`).removeClass('hidden')
         }
     })
 
