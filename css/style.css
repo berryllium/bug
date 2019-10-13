@@ -706,8 +706,8 @@ label {
 .nav-male {
   text-transform  : uppercase;
   font-size       : 18px;
-  background-color: gainsboro;
-  color           : black;
+  background-color: black;
+  color           : #c4b221;
   font-weight: bold;
 }
 
@@ -905,6 +905,10 @@ label {
 }
 
 .detailed .detailed-nav-wrapper li a:hover {
+  background-color: #000000
+}
+
+.detailed .detailed-nav-wrapper a.active {
   background-color: #000000
 }
 
@@ -1289,10 +1293,14 @@ label {
 .like-main .like-item .like-fill-item .like-button-basket {
   cursor          : pointer;
   padding         : 5px;
-  background-color: #dcdcdc;
+  background-color: white;
   border          : 1px solid #747474;
   color           : #000000;
   width           : 150px
+}
+
+.like-main .like-item .like-fill-item>p:hover {
+  background-color: #dcdcdc;
 }
 
 .like-main .like-item .like-fill-item .like-button-basket img {

@@ -661,8 +661,8 @@ function renderDetail(data) {
     console.log($('#detailed_row_width'));
     console.log(detailedRowWrapper.clientWidth);
     $('.fotorama').fotorama({
-        width: 0.55 * detailedRowWrapper.clientWidth,
-        height: 600,
+        width: 0.45 * detailedRowWrapper.clientWidth,
+        height: 475,
         //   height: $('.detailed-wrapper').height, 
         ratio: 16 / 9,
         allowfullscreen: true,
@@ -766,6 +766,14 @@ function renderDetail(data) {
         $(location).attr('href', 'items.html')
     })
 
+    //Описание, гарантия, оплата...
+
+    document.querySelector('.detailed-nav-wrapper').addEventListener('click', () => {
+        if (event.target.classList.contains('detail-li-a')) {
+            alert('ok')
+            event.target.classList.add('active')
+        }
+    })
 
 
     countBasket();
